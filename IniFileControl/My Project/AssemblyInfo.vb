@@ -1,4 +1,4 @@
-ï»¿Imports System.Reflection
+Imports System.Reflection
 Imports System.Runtime.CompilerServices
 Imports System.Runtime.InteropServices
 Imports Microsoft.VisualBasic
@@ -7,11 +7,11 @@ Imports Microsoft.VisualBasic
 ' set of attributes. Change these attribute values to modify the information
 ' associated with an assembly.
 <Assembly: AssemblyTitle("IniFileControl")>
-<Assembly: AssemblyDescription("")>
+<Assembly: AssemblyDescription("Control zum Verwalten von INI - Dateien.")>
 <Assembly: AssemblyConfiguration("")>
-<Assembly: AssemblyCompany("")>
+<Assembly: AssemblyCompany("SchlumpfSoft")>
 <Assembly: AssemblyProduct("IniFileControl")>
-<Assembly: AssemblyCopyright("")>
+<Assembly: AssemblyCopyright("© 2024 by Andreas Sauer")>
 <Assembly: AssemblyTrademark("")>
 <Assembly: AssemblyCulture("")>
 
@@ -30,5 +30,7 @@ Imports Microsoft.VisualBasic
 ' You can specify all the values or you can default the Build and Revision Numbers 
 ' by using the '*' as shown below:
 ' [assembly: AssemblyVersion("1.0.*")]
-<Assembly: AssemblyVersion("1.0.0.0")>
-<Assembly: AssemblyFileVersion("1.0.0.0")>
+<Assembly: AssemblyVersion("1.2024.0217.1")>
+<Assembly: AssemblyFileVersion("1.2024.0217.1")>
+
+<assembly: AssemblyInformationalVersion("0.2024.0217.1")>

@@ -1,2 +1,2 @@
-# IniFile Controls
+# IniFile Control
 
