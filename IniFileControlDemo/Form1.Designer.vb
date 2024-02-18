@@ -27,7 +27,11 @@ Partial Class Form1
         Me.ÖffnenToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BeendenToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.IniFile1 = New SchlumpfSoft.Controls.IniFileControl.IniFile()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.TextBox_FileComment = New System.Windows.Forms.TextBox()
+        Me.Button_FileCommentChange = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -63,17 +67,52 @@ Partial Class Form1
         Me.IniFile1.CommentPrefix = Global.Microsoft.VisualBasic.ChrW(59)
         Me.IniFile1.FilePath = Nothing
         '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.Button_FileCommentChange)
+        Me.GroupBox1.Controls.Add(Me.TextBox_FileComment)
+        Me.GroupBox1.Location = New System.Drawing.Point(8, 32)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(256, 164)
+        Me.GroupBox1.TabIndex = 1
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Dateikommentar"
+        '
+        'TextBox_FileComment
+        '
+        Me.TextBox_FileComment.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.TextBox_FileComment.Location = New System.Drawing.Point(8, 20)
+        Me.TextBox_FileComment.Multiline = True
+        Me.TextBox_FileComment.Name = "TextBox_FileComment"
+        Me.TextBox_FileComment.ScrollBars = System.Windows.Forms.ScrollBars.Both
+        Me.TextBox_FileComment.Size = New System.Drawing.Size(240, 112)
+        Me.TextBox_FileComment.TabIndex = 0
+        Me.TextBox_FileComment.WordWrap = False
+        '
+        'Button_FileCommentChange
+        '
+        Me.Button_FileCommentChange.Enabled = False
+        Me.Button_FileCommentChange.Location = New System.Drawing.Point(152, 136)
+        Me.Button_FileCommentChange.Name = "Button_FileCommentChange"
+        Me.Button_FileCommentChange.Size = New System.Drawing.Size(96, 24)
+        Me.Button_FileCommentChange.TabIndex = 1
+        Me.Button_FileCommentChange.Text = "übernehmen"
+        Me.Button_FileCommentChange.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(622, 422)
+        Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "Form1"
         Me.Text = "Form1"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -84,4 +123,7 @@ Partial Class Form1
     Friend WithEvents ÖffnenToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents BeendenToolStripMenuItem As ToolStripMenuItem
     Private WithEvents IniFile1 As SchlumpfSoft.Controls.IniFileControl.IniFile
+    Private WithEvents GroupBox1 As GroupBox
+    Private WithEvents Button_FileCommentChange As Button
+    Private WithEvents TextBox_FileComment As TextBox
 End Class

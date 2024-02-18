@@ -23,6 +23,24 @@ Public Class IniFile
     Private _Comment As String()
 
     ''' <summary>
+    ''' Wird ausgelöst wenn die Datei gespeichert wurde.
+    ''' </summary>
+    <Browsable(True)>
+    <Description("Wird ausgelöst wenn die Datei gespeichert wurde.")>
+    Public Event FileSaved(sender As Object, e As EventArgs)
+
+    ''' <summary>
+    ''' Wird ausgelöst wenn der Dateikommentar geändert wurde.
+    ''' </summary>
+    <Browsable(True)>
+    <Description("Wird ausgelöst wenn der Dateikommentar geändert wurde.")>
+    Public Event FileCommentChanged(sender As Object, e As EventArgs)
+
+
+
+
+
+    ''' <summary>
     ''' Gibt das Prefixzeichen für Kommentare zurück oder legt dieses fest.
     ''' </summary>
     <Browsable(True)>
@@ -95,6 +113,12 @@ Public Class IniFile
 
     End Sub
 
+    ''' <summary>
+    ''' Setzt den Dateikommentar.
+    ''' </summary>
+    ''' <param name="Comment">
+    ''' die Zielen des Kommentars.
+    ''' </param>
     Public Sub SetFileComment(Comment As String())
 
         'neue Liste für Kommentarzeilen erstellen
