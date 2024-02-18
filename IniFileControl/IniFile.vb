@@ -40,7 +40,7 @@ Public Class IniFile
     ''' <summary>
     ''' Gibt den Pfad und den Name zur INI-Datei zurück oder legt diesen fest.    
     ''' </summary>
-    <Browsable(False)>
+    <Browsable(True)>
     <Category("Design")>
     <Description("Gibt den Pfad und den Name zur INI-Datei zurück oder legt diesen fest.")>
     Public Property FilePath As String
