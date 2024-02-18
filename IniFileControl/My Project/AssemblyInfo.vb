@@ -11,7 +11,7 @@ Imports Microsoft.VisualBasic
 <Assembly: AssemblyConfiguration("")>
 <Assembly: AssemblyCompany("SchlumpfSoft")>
 <Assembly: AssemblyProduct("IniFileControl")>
-<Assembly: AssemblyCopyright("© 2024 by Andreas Sauer")>
+<Assembly: AssemblyCopyright("ï¿½ 2024 by Andreas Sauer")>
 <Assembly: AssemblyTrademark("")>
 <Assembly: AssemblyCulture("")>
 
@@ -30,7 +30,7 @@ Imports Microsoft.VisualBasic
 ' You can specify all the values or you can default the Build and Revision Numbers 
 ' by using the '*' as shown below:
 ' [assembly: AssemblyVersion("1.0.*")]
-<Assembly: AssemblyVersion("1.2024.0217.1")>
-<Assembly: AssemblyFileVersion("1.2024.0217.1")>
+<Assembly: AssemblyVersion("1.2024.0218.13")>
+<Assembly: AssemblyFileVersion("1.2024.0218.13")>
 
-<assembly: AssemblyInformationalVersion("0.2024.0217.1")>
+<assembly: AssemblyInformationalVersion("0.2024.0218.13")>
