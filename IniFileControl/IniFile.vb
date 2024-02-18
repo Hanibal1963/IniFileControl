@@ -16,18 +16,11 @@ Public Class IniFile
 
     Inherits Component
 
-    Private _FilePath As String
+    Private _FilePath As String = ""
     Private _FileContent As String()
     Private _CommentPrefix As Char = ";"c
     Private _Sections As List(Of ISection)
-    Private _Comment As String()
-
-    ''' <summary>
-    ''' Wird ausgelöst wenn die Datei gespeichert wurde.
-    ''' </summary>
-    <Browsable(True)>
-    <Description("Wird ausgelöst wenn die Datei gespeichert wurde.")>
-    Public Event FileSaved(sender As Object, e As EventArgs)
+    Private _Comment As String() = {""}
 
     ''' <summary>
     ''' Wird ausgelöst wenn der Dateikommentar geändert wurde.
@@ -36,8 +29,19 @@ Public Class IniFile
     <Description("Wird ausgelöst wenn der Dateikommentar geändert wurde.")>
     Public Event FileCommentChanged(sender As Object, e As EventArgs)
 
+    ''' <summary>
+    ''' Wird ausgelöst wenn der Dateiinhalt geändert wurde.
+    ''' </summary>
+    <Browsable(True)>
+    <Description("Wird ausgelöst wenn der Dateiinhalt geändert wurde.")>
+    Public Event FileContentChanged(sender As Object, e As EventArgs)
 
-
+    ''' <summary>
+    ''' Wird ausgelöst wenn die Datei gespeichert wurde.
+    ''' </summary>
+    <Browsable(True)>
+    <Description("Wird ausgelöst wenn die Datei gespeichert wurde.")>
+    Public Event FileSaved(sender As Object, e As EventArgs)
 
 
     ''' <summary>
@@ -87,6 +91,16 @@ Public Class IniFile
         End Get
     End Property
 
+    ''' <summary>
+    ''' Gibt die Zeilen der Datei zurück.
+    ''' </summary>
+    <Browsable(False)>
+    Public ReadOnly Property FileContent As String()
+        Get
+            Return Me._FileContent
+        End Get
+    End Property
+
     Public Sub New()
     End Sub
 
@@ -126,11 +140,12 @@ Public Class IniFile
 
         'Kommentarzeile inclusive Prefixzeichen hinzufügen
         For Each line As String In Comment
-            lines.Add(Me._CommentPrefix & line)
+            lines.Add(line)
         Next
 
         'Kommentar setzen
         Me._Comment = lines.ToArray
+        RaiseEvent FileCommentChanged(Me, EventArgs.Empty)
 
         'Dateiinhalt erzeugen
         Me.CreateFile()
@@ -185,6 +200,7 @@ Public Class IniFile
         For Each line As String In Me._Comment
             content.Add(Me._CommentPrefix & line)
         Next
+        RaiseEvent FileCommentChanged(Me, EventArgs.Empty)
 
         'Abschnitte hinzufügen
         For Each section As ISection In Me._Sections
@@ -205,6 +221,7 @@ Public Class IniFile
 
         'Zeilen der Datei zu Dateiinhalt konvertieren
         Me._FileContent = content.ToArray
+        RaiseEvent FileContentChanged(Me, EventArgs.Empty)
 
     End Sub
 
@@ -212,6 +229,7 @@ Public Class IniFile
 
         'Dateiinhalt auf Datenträger schreiben
         IO.File.WriteAllLines(Me._FilePath, Me._FileContent)
+        RaiseEvent FileSaved(Me, EventArgs.Empty)
 
     End Sub
 
@@ -219,6 +237,87 @@ Public Class IniFile
 
         'Dateiinhalt von Datenträger lesen
         Me._FileContent = IO.File.ReadAllLines(Me._FilePath)
+        RaiseEvent FileContentChanged(Me, EventArgs.Empty)
+
+        'Dateiinhalt analysieren
+        Me.ParseFileContent
+
+    End Sub
+
+    Private Sub ParseFileContent()
+
+        'neue Instanz der Abschnittsliste erstellen
+        Me._Sections = New List(Of ISection)
+
+        'aktueller Abschnittsname
+        Dim currentsection As String = ""
+
+        'Liste der Dateikommentarzeilen
+        Dim filecommentlines As New List(Of String)
+
+        'alle Zeilen des Dateiinhaltes durchlaufen
+        For Each line As String In Me._FileContent
+
+            'Leerzeichen am Anfang und Ende der Zeile entfernen
+            line = line.Trim
+
+            'ist die Zeile eine Dateikommentarzeile?
+            '(Zeile fängt mit Kommentarprefix an und es wurde noch kein Abschnitt gefunden)
+            If line.StartsWith(Me._CommentPrefix) And currentsection = "" Then
+
+                'Kommentarprefix entfernen
+                line = line.Substring(1, line.Length - 1)
+
+                'Zeile zur Liste der Dateikommentarzeilen hinzufügen
+                filecommentlines.Add(line)
+
+                'Dateikommentar in die Eigenschaft übernehmen
+                Me._Comment = filecommentlines.ToArray
+                RaiseEvent FileCommentChanged(Me, EventArgs.Empty)
+
+            End If
+
+            'Ist die Zeile ein Abschnittsname?
+            '(Zeile startet mit [ und endet mit ])
+            If line.StartsWith($"[") AndAlso line.EndsWith($"]") Then
+
+                'eckige Klammern entfernen
+                currentsection = line.Substring(1, line.Length - 2)
+
+                'neuen Abschnitt hinzufügen
+                Me._Sections.Add(New ISection With {.Name = currentsection})
+
+            End If
+
+            'TODO: Code für Abschnittskommentar erstellen
+
+
+            'Ist die Zeile ein Eintrag?
+            '(Zeile enthält = und es wurde bereits ein Abschnitt gefunden)
+            If line.Contains($"=") And currentsection <> "" Then
+
+                'TODO: Code Prüfen
+                Dim parts As String() = line.Split("="c)
+                Dim name As String = parts(0).Trim
+                Dim value As String
+                Dim comment As String
+                If parts(1).Contains(Me._CommentPrefix) Then
+                    value = parts(1).Split(Me._CommentPrefix)(0).Trim
+                    comment = parts(1).Split(Me._CommentPrefix)(1).Remove(0, 1).Trim
+                Else
+                    value = parts(1).Trim
+                End If
+
+
+
+
+
+            End If
+
+        Next
+
+
+
 
     End Sub
 

@@ -27,10 +27,10 @@
 
     Private Sub IniFile1_FileCommentChanged(sender As Object, e As EventArgs) Handles IniFile1.FileCommentChanged
 
-        'DateiKommentar in Textbox übernehmen
-        Me.TextBox_FileComment.Lines = IniFile1.Comment
+        'Dateikommentar in die Textbox übernehmen
+        Me.TextBox_FileComment.Lines = Me.IniFile1.Comment
 
-        'Button zum übernehmen der Kommentaränderungen deaktivieren
+        'Button zum übernehmen des geänderten Kommentars deaktivieren
         Me.Button_FileCommentChange.Enabled = False
 
     End Sub
@@ -43,6 +43,20 @@
 
         'Button zum übernehmen der Kommentaränderungen aktivieren
         Me.Button_FileCommentChange.Enabled = True
+
+    End Sub
+
+    Private Sub IniFile1_FileContentChanged(sender As Object, e As EventArgs) Handles IniFile1.FileContentChanged
+
+        'Dateiinhalt anzeigen
+        Me.TextBox_FileContent.Lines = Me.IniFile1.FileContent
+
+    End Sub
+
+    Private Sub Button_FileCommentChange_Click(sender As Object, e As EventArgs) Handles Button_FileCommentChange.Click
+
+        'geänderten Dateikommentar übernehmen
+        Me.IniFile1.SetFileComment(Me.TextBox_FileComment.Lines)
 
     End Sub
 

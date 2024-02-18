@@ -14,6 +14,8 @@ Imports System.Collections.Generic
 Public Class ISection
 
     Private _Entrys As List(Of IEntry)
+    Private _Name As String = ""
+    Private _Comment As String() = {""}
 
     Public Sub New()
         Me._Entrys = New List(Of IEntry)
@@ -24,12 +26,26 @@ Public Class ISection
     ''' </summary>
     ''' <returns></returns>
     Public Property Name As String
+        Get
+            Return _Name
+        End Get
+        Set
+            _Name = Value
+        End Set
+    End Property
 
     ''' <summary>
     ''' 
     ''' </summary>
     ''' <returns></returns>
     Public Property Comment As String()
+        Get
+            Return _Comment
+        End Get
+        Set
+            _Comment = Value
+        End Set
+    End Property
 
     ''' <summary>
     ''' 
