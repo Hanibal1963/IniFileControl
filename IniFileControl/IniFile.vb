@@ -252,9 +252,6 @@ Public Class IniFile
         'aktueller Abschnittsname
         Dim currentsection As String = ""
 
-        'Liste der Dateikommentarzeilen
-        Dim filecommentlines As New List(Of String)
-
         'alle Zeilen des Dateiinhaltes durchlaufen
         For Each line As String In Me._FileContent
 
@@ -265,14 +262,17 @@ Public Class IniFile
             '(Zeile fängt mit Kommentarprefix an und es wurde noch kein Abschnitt gefunden)
             If line.StartsWith(Me._CommentPrefix) And currentsection = "" Then
 
+                'neu Liste der Dateikommentarzeilen
+                Dim lines As New List(Of String)
+
                 'Kommentarprefix entfernen
                 line = line.Substring(1, line.Length - 1)
 
                 'Zeile zur Liste der Dateikommentarzeilen hinzufügen
-                filecommentlines.Add(line)
+                lines.Add(line)
 
                 'Dateikommentar in die Eigenschaft übernehmen
-                Me._Comment = filecommentlines.ToArray
+                Me._Comment = lines.ToArray
                 RaiseEvent FileCommentChanged(Me, EventArgs.Empty)
 
             End If
@@ -289,7 +289,33 @@ Public Class IniFile
 
             End If
 
-            'TODO: Code für Abschnittskommentar erstellen
+            'Ist die zeile eine Kommentarzeile und wurde ein Abschnitt gefunden?
+            '(Zeile fängt mit Kommentarprefix an und es wurde ein Abschnitt gefunden)
+            If line.StartsWith(Me._CommentPrefix) And currentsection <> "" Then
+
+                'neu Liste der Abschnittskommentarzeilen
+                Dim lines As New List(Of String)
+
+                'Kommentarprefix entfernen
+                line = line.Substring(1, line.Length - 1)
+
+                'Zeile zur Liste der Abschnittskommentarzeilen hinzufügen
+                lines.Add(line)
+
+                'TODO: Code zum hinzufügen des Abschnittskommentar erstellen
+
+                For Each section As ISection In Me._Sections
+                    If section.Name = currentsection Then
+                        section.Comment = lines.ToArray
+                    End If
+                Next
+
+
+
+            End If
+
+
+
 
 
             'Ist die Zeile ein Eintrag?
@@ -309,7 +335,7 @@ Public Class IniFile
                 End If
 
 
-
+                'TODO: Code zum hinzufügen der Einträge hinzufügen
 
 
             End If
