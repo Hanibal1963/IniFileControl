@@ -31,7 +31,10 @@ Partial Class Form1
         Me.TextBox_FileComment = New System.Windows.Forms.TextBox()
         Me.GroupBox_FileContent = New System.Windows.Forms.GroupBox()
         Me.TextBox_FileContent = New System.Windows.Forms.TextBox()
-        Me.IniFile1 = New SchlumpfSoft.Controls.IniFileControl.IniFile()
+        Me.SpeichernToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SpeichernUnterToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox_FileComment.SuspendLayout()
         Me.GroupBox_FileContent.SuspendLayout()
@@ -48,7 +51,7 @@ Partial Class Form1
         '
         'DateiToolStripMenuItem
         '
-        Me.DateiToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ÖffnenToolStripMenuItem, Me.BeendenToolStripMenuItem})
+        Me.DateiToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ÖffnenToolStripMenuItem, Me.ToolStripSeparator1, Me.SpeichernToolStripMenuItem, Me.SpeichernUnterToolStripMenuItem, Me.ToolStripSeparator2, Me.BeendenToolStripMenuItem})
         Me.DateiToolStripMenuItem.Name = "DateiToolStripMenuItem"
         Me.DateiToolStripMenuItem.Size = New System.Drawing.Size(46, 20)
         Me.DateiToolStripMenuItem.Text = "Datei"
@@ -56,13 +59,13 @@ Partial Class Form1
         'ÖffnenToolStripMenuItem
         '
         Me.ÖffnenToolStripMenuItem.Name = "ÖffnenToolStripMenuItem"
-        Me.ÖffnenToolStripMenuItem.Size = New System.Drawing.Size(123, 22)
+        Me.ÖffnenToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.ÖffnenToolStripMenuItem.Text = "Öffnen ..."
         '
         'BeendenToolStripMenuItem
         '
         Me.BeendenToolStripMenuItem.Name = "BeendenToolStripMenuItem"
-        Me.BeendenToolStripMenuItem.Size = New System.Drawing.Size(123, 22)
+        Me.BeendenToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.BeendenToolStripMenuItem.Text = "Beenden"
         '
         'GroupBox_FileComment
@@ -119,10 +122,27 @@ Partial Class Form1
         Me.TextBox_FileContent.TabIndex = 0
         Me.TextBox_FileContent.WordWrap = False
         '
-        'IniFile1
+        'SpeichernToolStripMenuItem
         '
-        Me.IniFile1.CommentPrefix = Global.Microsoft.VisualBasic.ChrW(59)
-        Me.IniFile1.FilePath = Nothing
+        Me.SpeichernToolStripMenuItem.Name = "SpeichernToolStripMenuItem"
+        Me.SpeichernToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.SpeichernToolStripMenuItem.Text = "Speichern"
+        '
+        'SpeichernUnterToolStripMenuItem
+        '
+        Me.SpeichernUnterToolStripMenuItem.Name = "SpeichernUnterToolStripMenuItem"
+        Me.SpeichernUnterToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.SpeichernUnterToolStripMenuItem.Text = "Speichern unter ..."
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(177, 6)
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(177, 6)
         '
         'Form1
         '
@@ -150,10 +170,13 @@ Partial Class Form1
     Friend WithEvents DateiToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ÖffnenToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents BeendenToolStripMenuItem As ToolStripMenuItem
-    Private WithEvents IniFile1 As SchlumpfSoft.Controls.IniFileControl.IniFile
     Private WithEvents GroupBox_FileComment As GroupBox
     Private WithEvents Button_FileCommentChange As Button
     Private WithEvents TextBox_FileComment As TextBox
     Private WithEvents GroupBox_FileContent As GroupBox
     Private WithEvents TextBox_FileContent As TextBox
+    Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
+    Friend WithEvents SpeichernToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents SpeichernUnterToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
 End Class

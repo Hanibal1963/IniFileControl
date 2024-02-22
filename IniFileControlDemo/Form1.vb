@@ -1,13 +1,26 @@
 ﻿Public Class Form1
 
-    Private Sub ÖffnenToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ÖffnenToolStripMenuItem.Click
+    Private Sub ToolStripMenuItem_Click(sender As Object, e As EventArgs) _
+        Handles ÖffnenToolStripMenuItem.Click, SpeichernToolStripMenuItem.Click,
+                SpeichernUnterToolStripMenuItem.Click, BeendenToolStripMenuItem.Click
+
+        Select Case True
+            Case sender Is Me.ÖffnenToolStripMenuItem : Me.OpenFile()
+            Case sender Is Me.SpeichernToolStripMenuItem : Me.SaveFile()
+            Case sender Is Me.SpeichernUnterToolStripMenuItem : Me.SaveFileAs()
+            Case sender Is Me.BeendenToolStripMenuItem : Me.Close()
+        End Select
+
+    End Sub
+
+    Private Sub OpenFile()
 
         Dim ofd As New OpenFileDialog With {
             .Title = $"INI - Datei öffnen",
             .InitialDirectory = My.Computer.FileSystem.SpecialDirectories.MyDocuments,
             .Filter = $"INI-Dateien (*.ini)|*.ini",
             .AddExtension = True,
-            .CheckFileExists = False,
+            .CheckFileExists = True,
             .Multiselect = False,
             .ShowHelp = False}
 
@@ -15,48 +28,28 @@
 
         If Not result = DialogResult.OK Then Exit Sub
 
-        Me.IniFile1.FilePath = ofd.FileName
 
     End Sub
 
-    Private Sub BeendenToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BeendenToolStripMenuItem.Click
-
-        Me.Close()
+    Private Sub SaveFile()
 
     End Sub
 
-    Private Sub IniFile1_FileCommentChanged(sender As Object, e As EventArgs) Handles IniFile1.FileCommentChanged
-
-        'Dateikommentar in die Textbox übernehmen
-        Me.TextBox_FileComment.Lines = Me.IniFile1.Comment
-
-        'Button zum übernehmen des geänderten Kommentars deaktivieren
-        Me.Button_FileCommentChange.Enabled = False
-
-    End Sub
-
-    Private Sub IniFile1_FileSaved(sender As Object, e As EventArgs) Handles IniFile1.FileSaved
+    Private Sub SaveFileAs()
 
     End Sub
 
     Private Sub TextBox_FileComment_TextChanged(sender As Object, e As EventArgs) Handles TextBox_FileComment.TextChanged
 
-        'Button zum übernehmen der Kommentaränderungen aktivieren
+        'TODO: Button zum übernehmen der Kommentaränderungen aktivieren
         Me.Button_FileCommentChange.Enabled = True
 
     End Sub
 
-    Private Sub IniFile1_FileContentChanged(sender As Object, e As EventArgs) Handles IniFile1.FileContentChanged
-
-        'Dateiinhalt anzeigen
-        Me.TextBox_FileContent.Lines = Me.IniFile1.FileContent
-
-    End Sub
 
     Private Sub Button_FileCommentChange_Click(sender As Object, e As EventArgs) Handles Button_FileCommentChange.Click
 
-        'geänderten Dateikommentar übernehmen
-        Me.IniFile1.SetFileComment(Me.TextBox_FileComment.Lines)
+        'TODO: geänderten Dateikommentar übernehmen
 
     End Sub
 
