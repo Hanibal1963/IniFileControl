@@ -25,16 +25,17 @@ Partial Class Form1
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.DateiToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ÖffnenToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.SpeichernToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SpeichernUnterToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.BeendenToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox_FileComment = New System.Windows.Forms.GroupBox()
         Me.Button_FileCommentChange = New System.Windows.Forms.Button()
         Me.TextBox_FileComment = New System.Windows.Forms.TextBox()
         Me.GroupBox_FileContent = New System.Windows.Forms.GroupBox()
         Me.TextBox_FileContent = New System.Windows.Forms.TextBox()
-        Me.SpeichernToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.SpeichernUnterToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.IniFile1 = New SchlumpfSoft.Controls.IniFileControl.IniFile()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox_FileComment.SuspendLayout()
         Me.GroupBox_FileContent.SuspendLayout()
@@ -59,13 +60,35 @@ Partial Class Form1
         'ÖffnenToolStripMenuItem
         '
         Me.ÖffnenToolStripMenuItem.Name = "ÖffnenToolStripMenuItem"
-        Me.ÖffnenToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ÖffnenToolStripMenuItem.Size = New System.Drawing.Size(169, 22)
         Me.ÖffnenToolStripMenuItem.Text = "Öffnen ..."
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(166, 6)
+        '
+        'SpeichernToolStripMenuItem
+        '
+        Me.SpeichernToolStripMenuItem.Name = "SpeichernToolStripMenuItem"
+        Me.SpeichernToolStripMenuItem.Size = New System.Drawing.Size(169, 22)
+        Me.SpeichernToolStripMenuItem.Text = "Speichern"
+        '
+        'SpeichernUnterToolStripMenuItem
+        '
+        Me.SpeichernUnterToolStripMenuItem.Name = "SpeichernUnterToolStripMenuItem"
+        Me.SpeichernUnterToolStripMenuItem.Size = New System.Drawing.Size(169, 22)
+        Me.SpeichernUnterToolStripMenuItem.Text = "Speichern unter ..."
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(166, 6)
         '
         'BeendenToolStripMenuItem
         '
         Me.BeendenToolStripMenuItem.Name = "BeendenToolStripMenuItem"
-        Me.BeendenToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.BeendenToolStripMenuItem.Size = New System.Drawing.Size(169, 22)
         Me.BeendenToolStripMenuItem.Text = "Beenden"
         '
         'GroupBox_FileComment
@@ -122,27 +145,10 @@ Partial Class Form1
         Me.TextBox_FileContent.TabIndex = 0
         Me.TextBox_FileContent.WordWrap = False
         '
-        'SpeichernToolStripMenuItem
+        'IniFile1
         '
-        Me.SpeichernToolStripMenuItem.Name = "SpeichernToolStripMenuItem"
-        Me.SpeichernToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.SpeichernToolStripMenuItem.Text = "Speichern"
-        '
-        'SpeichernUnterToolStripMenuItem
-        '
-        Me.SpeichernUnterToolStripMenuItem.Name = "SpeichernUnterToolStripMenuItem"
-        Me.SpeichernUnterToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.SpeichernUnterToolStripMenuItem.Text = "Speichern unter ..."
-        '
-        'ToolStripSeparator1
-        '
-        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(177, 6)
-        '
-        'ToolStripSeparator2
-        '
-        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(177, 6)
+        Me.IniFile1.CommentPrefix = Global.Microsoft.VisualBasic.ChrW(59)
+        Me.IniFile1.FilePath = "D:\Dokumente\NeueDatei.ini"
         '
         'Form1
         '
@@ -179,4 +185,5 @@ Partial Class Form1
     Friend WithEvents SpeichernToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents SpeichernUnterToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
+    Private WithEvents IniFile1 As SchlumpfSoft.Controls.IniFileControl.IniFile
 End Class

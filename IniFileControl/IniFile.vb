@@ -37,6 +37,17 @@ Public Class IniFile
     ''' <summary>
     ''' Gibt den Pfad und den Name zur INI-Datei zurück oder legt diesen fest.    
     ''' </summary>
+    <Browsable(True)>
+    <Category("Design")>
+    <Description("Gibt den Pfad und den Name zur INI-Datei zurück oder legt diesen fest.")>
+    Public Property FilePath As String
+        Get
+            Return _FilePath
+        End Get
+        Set
+            _FilePath = Value
+        End Set
+    End Property
 
     ''' <summary>
     ''' Erstellt eine neue Instanz dieser Klasse.
@@ -46,10 +57,7 @@ Public Class IniFile
         'anfänglichen Speicherort und Name der Datei sowie Standardprefix für Kommentare festlegen
         Me.New(My.Computer.FileSystem.SpecialDirectories.MyDocuments &
                 IO.Path.DirectorySeparatorChar &
-                $"NeueDatei.ini", ";"c)
-
-        'anfänglichen Dateiinhalt erzeugen
-        Me.CreateTemplate()
+                My.Resources.DefaultFileName, CChar(My.Resources.DefaultCommentPrefix))
 
     End Sub
 
@@ -72,6 +80,10 @@ Public Class IniFile
         Me._FilePath = FilePath
         Me._CommentPrefix = CommentPrefix
 
+        'anfänglichen Dateiinhalt erzeugen und speichern
+        Me.CreateTemplate()
+        Me.SaveFile()
+
     End Sub
 
     ''' <summary>
@@ -91,8 +103,6 @@ Public Class IniFile
 
         'Pfad und Name der Datei merken
         Me._FilePath = FilePath
-
-        'Datei laden
         Me.LoadFile()
 
     End Sub
@@ -101,11 +111,6 @@ Public Class IniFile
     ''' Lädt die Datei die in <see cref="FilePath"/> angegeben wurde.
     ''' </summary>
     Public Sub LoadFile()
-
-        'Eigenschaft überprüfen
-        If String.IsNullOrWhiteSpace(Me._FilePath) Then
-            Throw New Exception($"")
-        End If
 
         'Dateiinhalt von Datenträger lesen
         Me._FileContent = IO.File.ReadAllLines(Me._FilePath)
@@ -120,6 +125,14 @@ Public Class IniFile
     ''' </param>
     Public Sub SaveFile(FilePath As String)
 
+        'Parameter überprüfen
+        If String.IsNullOrWhiteSpace(FilePath) Then
+            Throw New ArgumentException(
+                $"Der Parameter""{NameOf(FilePath)}"" darf nicht NULL oder ein Leerraumzeichen sein.",
+                NameOf(FilePath))
+        End If
+
+        'Pfad und Name der Datei merken
         Me._FilePath = FilePath
         Me.SaveFile()
 
@@ -138,10 +151,17 @@ Public Class IniFile
     Private Sub CreateTemplate()
 
         Me._FileContent = {
-             Me._CommentPrefix & "",
-             Me._CommentPrefix & ""
+             Me._CommentPrefix & $" " & My.Resources.DefaultFileName,
+             Me._CommentPrefix & $" erstellt von " & My.Application.Info.AssemblyName &
+             $" V" & My.Application.Info.Version.ToString,
+             Me._CommentPrefix & $" " & My.Application.Info.Copyright,
+             $"",
+             $"[Abschnitt 1]",
+             Me._CommentPrefix & $"Beispielabschnitt",
+             $"Computername = " & My.Computer.Name & Me._CommentPrefix & $" Name dieses PC's",
+             $"Betriebssystem = " & My.Computer.Info.OSFullName,
+             $"Version = " & My.Computer.Info.OSVersion
         }
-
 
     End Sub
 

@@ -1,4 +1,11 @@
-﻿Public Class Form1
+﻿' ****************************************************************************************************************
+' Form1.vb
+' © 2024 by Andreas Sauer
+' ****************************************************************************************************************
+'
+
+
+Public Class Form1
 
     Private Sub ToolStripMenuItem_Click(sender As Object, e As EventArgs) _
         Handles ÖffnenToolStripMenuItem.Click, SpeichernToolStripMenuItem.Click,
@@ -28,14 +35,31 @@
 
         If Not result = DialogResult.OK Then Exit Sub
 
+        Me.IniFile1.LoadFile(ofd.FileName)
 
     End Sub
 
     Private Sub SaveFile()
 
+        Me.IniFile1.SaveFile()
+
     End Sub
 
     Private Sub SaveFileAs()
+
+        Dim sfd As New SaveFileDialog With {
+            .Title = $"INI - Datei speichern unter",
+            .InitialDirectory = My.Computer.FileSystem.SpecialDirectories.MyDocuments,
+            .Filter = $"INI-Dateien (*.ini)|*.ini",
+            .AddExtension = True,
+            .CheckFileExists = False,
+            .ShowHelp = False}
+
+        Dim result As DialogResult = sfd.ShowDialog(Me)
+
+        If Not result = DialogResult.OK Then Exit Sub
+
+        Me.IniFile1.SaveFile(sfd.FileName)
 
     End Sub
 
