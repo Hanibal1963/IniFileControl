@@ -21,7 +21,7 @@ Public Class IniFile : Inherits Component
     Private _CommentPrefix As Char
     Private _FileContent() As String
     Private _FileComment As List(Of String)
-    Private _Sections As Dictionary(Of String, Dictionary(Of String, Tuple(Of String, String)))
+    Private _Sections As Dictionary(Of String, Dictionary(Of String, String))
     Private _SectionsComments As Dictionary(Of String, List(Of String))
     Private _CurrentSectionName As String
     Private _AutoSave As Boolean
@@ -258,7 +258,7 @@ Public Class IniFile : Inherits Component
         End If
 
         'Abschnittsname hinzufügen und eventuell speichern
-        Me._Sections.Add(Name, New Dictionary(Of String, Tuple(Of String, String)))
+        Me._Sections.Add(Name, New Dictionary(Of String, String))
         Me._SectionsComments.Add(Name, New List(Of String))
         If Me._AutoSave Then Me.SaveFile()
         RaiseEvent SectionsChanged(Me, EventArgs.Empty)
@@ -347,8 +347,7 @@ Public Class IniFile : Inherits Component
             For Each entryname As String In Me._Sections.Item(sectionname).Keys
                 'Eintragszeile erzeugen und einfügen
                 entryline = entryname & $" = " &
-                    Me._Sections.Item(sectionname).Item(entryname).Item1 & $" ; " &
-                    Me._Sections.Item(sectionname).Item(entryname).Item2
+                    Me._Sections.Item(sectionname).Item(entryname)
                 filecontent.Add(entryline)
             Next
 
@@ -375,7 +374,10 @@ Public Class IniFile : Inherits Component
              $"",
              $"[Abschnitt 1]",
              Me._CommentPrefix & $"Beispielabschnitt",
-             $"Computername = " & My.Computer.Name & Me._CommentPrefix & $" Name dieses PC's",
+             Me._CommentPrefix & $"Computername - Name des PC's",
+             Me._CommentPrefix & $"Betriebssystem - welches Betriebssystem",
+             Me._CommentPrefix & $"Version - Versionsnummer des Betriebssystems",
+             $"Computername = " & My.Computer.Name,
              $"Betriebssystem = " & My.Computer.Info.OSFullName,
              $"Version = " & My.Computer.Info.OSVersion
         }
@@ -449,31 +451,12 @@ Public Class IniFile : Inherits Component
     ''' </param>
     Private Sub AddEntryLine(LineContent As String)
 
-        Dim name As String = ""
-        Dim value As String = ""
-        Dim comment As String = ""
+        'Eintagszeile in Name und Wert trennen
+        Dim name As String = LineContent.Split("="c)(0).Trim
+        Dim value As String = LineContent.Split("="c)(1).Trim
 
-        'Eintagszeile in Name, wert und Kommentar trennen
-        Dim entryparts() As String = LineContent.Split({"="c, Me._CommentPrefix})
-
-        '
-        Select Case entryparts.Length
-            Case 1  'nur Name
-                name = entryparts(0).Trim
-
-            Case 2 'Name und Wert
-                name = entryparts(0).Trim
-                value = entryparts(1).Trim
-
-            Case 3  'Name,Wert und Kommentar
-                name = entryparts(0).Trim
-                value = entryparts(1).Trim
-                comment = entryparts(2).Trim
-
-        End Select
-
-        'Eintragszeile hinzufügen
-        Me._Sections.Item(Me._CurrentSectionName).Add(name, New Tuple(Of String, String)(value, comment))
+        'Eintrag hinzufügen
+        Me._Sections.Item(Me._CurrentSectionName).Add(name, value)
 
     End Sub
 
@@ -508,7 +491,7 @@ Public Class IniFile : Inherits Component
         Me._CurrentSectionName = line
 
         'neuen Abschnitt erstellen
-        Me._Sections.Add(Me._CurrentSectionName, New Dictionary(Of String, Tuple(Of String, String)))
+        Me._Sections.Add(Me._CurrentSectionName, New Dictionary(Of String, String))
         Me._SectionsComments.Add(Me._CurrentSectionName, New List(Of String))
 
     End Sub
@@ -533,7 +516,7 @@ Public Class IniFile : Inherits Component
     Private Sub InitParseVariables()
 
         Me._FileComment = New List(Of String)
-        Me._Sections = New Dictionary(Of String, Dictionary(Of String, Tuple(Of String, String)))
+        Me._Sections = New Dictionary(Of String, Dictionary(Of String, String))
         Me._SectionsComments = New Dictionary(Of String, List(Of String))
 
     End Sub
