@@ -29,7 +29,7 @@ Public NotInheritable Class ProvideToolboxControlAttribute
     ''' </summary>
     ''' <param name="isWpfControls"></param>
     Public Sub New(ByVal name As String, ByVal isWpfControls As Boolean)
-        If (name Is Nothing) Then
+        If name Is Nothing Then
             Throw New ArgumentException("name")
         End If
 
@@ -68,7 +68,7 @@ Public NotInheritable Class ProvideToolboxControlAttribute
     ''' </summary>
     ''' <param name="context">Given context to register in</param>
     Public Overrides Sub Register(ByVal context As RegistrationAttribute.RegistrationContext)
-        If (context Is Nothing) Then
+        If context Is Nothing Then
             Throw New ArgumentNullException("context")
         End If
 
@@ -77,7 +77,7 @@ Public NotInheritable Class ProvideToolboxControlAttribute
                                                          context.ComponentType.Assembly.FullName))
             key.SetValue(String.Empty, Me.Name)
             key.SetValue("Codebase", context.CodeBase)
-            If (Me.IsWpfControls) Then
+            If Me.IsWpfControls Then
                 key.SetValue("WPFControls", "1")
             End If
         End Using
@@ -88,7 +88,7 @@ Public NotInheritable Class ProvideToolboxControlAttribute
     ''' </summary>
     ''' <param name="context">A registration context provided by an external registration tool. The context can be used to remove registry keys, log registration activity, and obtain information about the component being registered.</param>
     Public Overrides Sub Unregister(ByVal context As RegistrationAttribute.RegistrationContext)
-        If (context IsNot Nothing) Then
+        If context IsNot Nothing Then
             context.RemoveKey(String.Format(CultureInfo.InvariantCulture, "{0}\{1}",
                                                          ToolboxControlsInstallerPath,
                                                          context.ComponentType.Assembly.FullName))

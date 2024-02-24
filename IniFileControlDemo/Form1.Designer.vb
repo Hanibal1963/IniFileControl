@@ -22,7 +22,7 @@ Partial Class Form1
     'Das Bearbeiten mit dem Code-Editor ist nicht möglich.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.MenuStrip_HauptMenu = New System.Windows.Forms.MenuStrip()
         Me.DateiToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ÖffnenToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
@@ -33,22 +33,24 @@ Partial Class Form1
         Me.GroupBox_FileComment = New System.Windows.Forms.GroupBox()
         Me.Button_FileCommentChange = New System.Windows.Forms.Button()
         Me.TextBox_FileComment = New System.Windows.Forms.TextBox()
-        Me.GroupBox_FileContent = New System.Windows.Forms.GroupBox()
-        Me.TextBox_FileContent = New System.Windows.Forms.TextBox()
+        Me.GroupBox_Sections = New System.Windows.Forms.GroupBox()
+        Me.Button_DeleteSection = New System.Windows.Forms.Button()
+        Me.Button_RenameSection = New System.Windows.Forms.Button()
+        Me.Button_AddSection = New System.Windows.Forms.Button()
+        Me.ListBox_Sections = New System.Windows.Forms.ListBox()
         Me.IniFile1 = New SchlumpfSoft.Controls.IniFileControl.IniFile()
-        Me.MenuStrip1.SuspendLayout()
+        Me.MenuStrip_HauptMenu.SuspendLayout()
         Me.GroupBox_FileComment.SuspendLayout()
-        Me.GroupBox_FileContent.SuspendLayout()
+        Me.GroupBox_Sections.SuspendLayout()
         Me.SuspendLayout()
         '
-        'MenuStrip1
+        'MenuStrip_HauptMenu
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DateiToolStripMenuItem})
-        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(612, 24)
-        Me.MenuStrip1.TabIndex = 0
-        Me.MenuStrip1.Text = "MenuStrip1"
+        Me.MenuStrip_HauptMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DateiToolStripMenuItem})
+        Me.MenuStrip_HauptMenu.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip_HauptMenu.Name = "MenuStrip_HauptMenu"
+        Me.MenuStrip_HauptMenu.Size = New System.Drawing.Size(612, 24)
+        Me.MenuStrip_HauptMenu.TabIndex = 0
         '
         'DateiToolStripMenuItem
         '
@@ -97,7 +99,7 @@ Partial Class Form1
         Me.GroupBox_FileComment.Controls.Add(Me.TextBox_FileComment)
         Me.GroupBox_FileComment.Location = New System.Drawing.Point(8, 32)
         Me.GroupBox_FileComment.Name = "GroupBox_FileComment"
-        Me.GroupBox_FileComment.Size = New System.Drawing.Size(256, 164)
+        Me.GroupBox_FileComment.Size = New System.Drawing.Size(312, 164)
         Me.GroupBox_FileComment.TabIndex = 1
         Me.GroupBox_FileComment.TabStop = False
         Me.GroupBox_FileComment.Text = "Dateikommentar"
@@ -105,9 +107,9 @@ Partial Class Form1
         'Button_FileCommentChange
         '
         Me.Button_FileCommentChange.Enabled = False
-        Me.Button_FileCommentChange.Location = New System.Drawing.Point(152, 136)
+        Me.Button_FileCommentChange.Location = New System.Drawing.Point(220, 136)
         Me.Button_FileCommentChange.Name = "Button_FileCommentChange"
-        Me.Button_FileCommentChange.Size = New System.Drawing.Size(96, 24)
+        Me.Button_FileCommentChange.Size = New System.Drawing.Size(84, 24)
         Me.Button_FileCommentChange.TabIndex = 1
         Me.Button_FileCommentChange.Text = "übernehmen"
         Me.Button_FileCommentChange.UseVisualStyleBackColor = True
@@ -119,34 +121,64 @@ Partial Class Form1
         Me.TextBox_FileComment.Multiline = True
         Me.TextBox_FileComment.Name = "TextBox_FileComment"
         Me.TextBox_FileComment.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.TextBox_FileComment.Size = New System.Drawing.Size(240, 112)
+        Me.TextBox_FileComment.Size = New System.Drawing.Size(296, 112)
         Me.TextBox_FileComment.TabIndex = 0
         Me.TextBox_FileComment.WordWrap = False
         '
-        'GroupBox_FileContent
+        'GroupBox_Sections
         '
-        Me.GroupBox_FileContent.Controls.Add(Me.TextBox_FileContent)
-        Me.GroupBox_FileContent.Location = New System.Drawing.Point(280, 32)
-        Me.GroupBox_FileContent.Name = "GroupBox_FileContent"
-        Me.GroupBox_FileContent.Size = New System.Drawing.Size(328, 168)
-        Me.GroupBox_FileContent.TabIndex = 2
-        Me.GroupBox_FileContent.TabStop = False
-        Me.GroupBox_FileContent.Text = "Dateiinhalt"
+        Me.GroupBox_Sections.Controls.Add(Me.Button_DeleteSection)
+        Me.GroupBox_Sections.Controls.Add(Me.Button_RenameSection)
+        Me.GroupBox_Sections.Controls.Add(Me.Button_AddSection)
+        Me.GroupBox_Sections.Controls.Add(Me.ListBox_Sections)
+        Me.GroupBox_Sections.Location = New System.Drawing.Point(12, 204)
+        Me.GroupBox_Sections.Name = "GroupBox_Sections"
+        Me.GroupBox_Sections.Size = New System.Drawing.Size(308, 196)
+        Me.GroupBox_Sections.TabIndex = 2
+        Me.GroupBox_Sections.TabStop = False
+        Me.GroupBox_Sections.Text = "Abschnittsliste"
         '
-        'TextBox_FileContent
+        'Button_DeleteSection
         '
-        Me.TextBox_FileContent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TextBox_FileContent.Location = New System.Drawing.Point(12, 24)
-        Me.TextBox_FileContent.Multiline = True
-        Me.TextBox_FileContent.Name = "TextBox_FileContent"
-        Me.TextBox_FileContent.ReadOnly = True
-        Me.TextBox_FileContent.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.TextBox_FileContent.Size = New System.Drawing.Size(308, 136)
-        Me.TextBox_FileContent.TabIndex = 0
-        Me.TextBox_FileContent.WordWrap = False
+        Me.Button_DeleteSection.Enabled = False
+        Me.Button_DeleteSection.Location = New System.Drawing.Point(208, 164)
+        Me.Button_DeleteSection.Name = "Button_DeleteSection"
+        Me.Button_DeleteSection.Size = New System.Drawing.Size(96, 24)
+        Me.Button_DeleteSection.TabIndex = 3
+        Me.Button_DeleteSection.Text = "löschen"
+        Me.Button_DeleteSection.UseVisualStyleBackColor = True
+        '
+        'Button_RenameSection
+        '
+        Me.Button_RenameSection.Enabled = False
+        Me.Button_RenameSection.Location = New System.Drawing.Point(108, 164)
+        Me.Button_RenameSection.Name = "Button_RenameSection"
+        Me.Button_RenameSection.Size = New System.Drawing.Size(96, 24)
+        Me.Button_RenameSection.TabIndex = 2
+        Me.Button_RenameSection.Text = "umbenennen"
+        Me.Button_RenameSection.UseVisualStyleBackColor = True
+        '
+        'Button_AddSection
+        '
+        Me.Button_AddSection.Enabled = False
+        Me.Button_AddSection.Location = New System.Drawing.Point(8, 164)
+        Me.Button_AddSection.Name = "Button_AddSection"
+        Me.Button_AddSection.Size = New System.Drawing.Size(96, 24)
+        Me.Button_AddSection.TabIndex = 1
+        Me.Button_AddSection.Text = "hinzufügen"
+        Me.Button_AddSection.UseVisualStyleBackColor = True
+        '
+        'ListBox_Sections
+        '
+        Me.ListBox_Sections.FormattingEnabled = True
+        Me.ListBox_Sections.Location = New System.Drawing.Point(8, 20)
+        Me.ListBox_Sections.Name = "ListBox_Sections"
+        Me.ListBox_Sections.Size = New System.Drawing.Size(296, 134)
+        Me.ListBox_Sections.TabIndex = 0
         '
         'IniFile1
         '
+        Me.IniFile1.AutoSave = True
         Me.IniFile1.CommentPrefix = Global.Microsoft.VisualBasic.ChrW(59)
         Me.IniFile1.FilePath = "D:\Dokumente\NeueDatei.ini"
         '
@@ -154,36 +186,38 @@ Partial Class Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(612, 422)
-        Me.Controls.Add(Me.GroupBox_FileContent)
+        Me.ClientSize = New System.Drawing.Size(612, 408)
+        Me.Controls.Add(Me.GroupBox_Sections)
         Me.Controls.Add(Me.GroupBox_FileComment)
-        Me.Controls.Add(Me.MenuStrip1)
-        Me.MainMenuStrip = Me.MenuStrip1
+        Me.Controls.Add(Me.MenuStrip_HauptMenu)
+        Me.MainMenuStrip = Me.MenuStrip_HauptMenu
         Me.Name = "Form1"
         Me.Text = "Form1"
-        Me.MenuStrip1.ResumeLayout(False)
-        Me.MenuStrip1.PerformLayout()
+        Me.MenuStrip_HauptMenu.ResumeLayout(False)
+        Me.MenuStrip_HauptMenu.PerformLayout()
         Me.GroupBox_FileComment.ResumeLayout(False)
         Me.GroupBox_FileComment.PerformLayout()
-        Me.GroupBox_FileContent.ResumeLayout(False)
-        Me.GroupBox_FileContent.PerformLayout()
+        Me.GroupBox_Sections.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
 
-    Private WithEvents MenuStrip1 As MenuStrip
+    Private WithEvents MenuStrip_HauptMenu As MenuStrip
     Friend WithEvents DateiToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ÖffnenToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents BeendenToolStripMenuItem As ToolStripMenuItem
     Private WithEvents GroupBox_FileComment As GroupBox
     Private WithEvents Button_FileCommentChange As Button
     Private WithEvents TextBox_FileComment As TextBox
-    Private WithEvents GroupBox_FileContent As GroupBox
-    Private WithEvents TextBox_FileContent As TextBox
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
     Friend WithEvents SpeichernToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents SpeichernUnterToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
     Private WithEvents IniFile1 As SchlumpfSoft.Controls.IniFileControl.IniFile
+    Private WithEvents GroupBox_Sections As GroupBox
+    Private WithEvents ListBox_Sections As ListBox
+    Private WithEvents Button_DeleteSection As Button
+    Private WithEvents Button_RenameSection As Button
+    Private WithEvents Button_AddSection As Button
 End Class
