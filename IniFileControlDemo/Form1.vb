@@ -68,7 +68,20 @@ Public Class Form1
                 Me.RenameSection()
             Case sender Is Me.Button_DeleteSection
                 'Abschnitt löschen
-                'Me.DeleteSection()
+                Me.DeleteSection()
+        End Select
+    End Sub
+
+    Private Sub DeleteSection()
+        Select Case MessageBox.Show(
+            $"Wollen Sie den Abschnitt ""{Me.ListBox_Sections.SelectedItem}"" wirklich löschen",
+            $"Abschnitt löschen",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Question)
+            Case DialogResult.Yes
+                Me.IniFile1.DeleteSection(Me.ListBox_Sections.SelectedItem.ToString)
+            Case DialogResult.No
+
         End Select
     End Sub
 

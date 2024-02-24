@@ -297,6 +297,24 @@ Public Class IniFile : Inherits Component
     End Sub
 
     ''' <summary>
+    ''' Löscht einen Abschnitt
+    ''' </summary>
+    ''' <param name="Name">
+    ''' Name des Nbschnittes
+    ''' </param>
+    Public Sub DeleteSection(Name As String)
+
+        'Abschnitt aus den Listen entfernen
+        Dim unused = Me._Sections.Remove(Name)
+        Dim unused1 = Me._SectionsComments.Remove(Name)
+
+        'Änderungen eventuell speichern
+        If Me._AutoSave Then Me.SaveFile()
+        RaiseEvent SectionsChanged(Me, EventArgs.Empty)
+
+    End Sub
+
+    ''' <summary>
     ''' Erzeugt den Dateiinhalt
     ''' </summary>
     Private Sub CreateFileContent()
