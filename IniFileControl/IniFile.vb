@@ -283,7 +283,7 @@ Public Class IniFile : Inherits Component
         Me._Sections.Add(NewName, oldvalue)
 
         'alten Kommentar speichern, Abschnitt entfernen und
-        'neuen abschnitt mit altem Kommentar erstellen
+        'neuen Abschnitt mit altem Kommentar erstellen
         Dim oldcomment = Me._SectionsComments.Item(OldName)
         Dim unused1 = Me._SectionsComments.Remove(OldName)
         Me._SectionsComments.Add(NewName, oldcomment)

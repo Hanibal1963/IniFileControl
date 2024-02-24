@@ -38,10 +38,10 @@ Partial Class Form1
         Me.Button_RenameSection = New System.Windows.Forms.Button()
         Me.Button_AddSection = New System.Windows.Forms.Button()
         Me.ListBox_Sections = New System.Windows.Forms.ListBox()
-        Me.IniFile1 = New SchlumpfSoft.Controls.IniFileControl.IniFile()
         Me.GroupBox_SectionComment = New System.Windows.Forms.GroupBox()
-        Me.TextBox_SectionComment = New System.Windows.Forms.TextBox()
         Me.Button_SectionCommentChange = New System.Windows.Forms.Button()
+        Me.TextBox_SectionComment = New System.Windows.Forms.TextBox()
+        Me.IniFile1 = New SchlumpfSoft.Controls.IniFileControl.IniFile()
         Me.MenuStrip_HauptMenu.SuspendLayout()
         Me.GroupBox_FileComment.SuspendLayout()
         Me.GroupBox_Sections.SuspendLayout()
@@ -180,12 +180,6 @@ Partial Class Form1
         Me.ListBox_Sections.Size = New System.Drawing.Size(296, 134)
         Me.ListBox_Sections.TabIndex = 0
         '
-        'IniFile1
-        '
-        Me.IniFile1.AutoSave = True
-        Me.IniFile1.CommentPrefix = Global.Microsoft.VisualBasic.ChrW(59)
-        Me.IniFile1.FilePath = "D:\Dokumente\NeueDatei.ini"
-        '
         'GroupBox_SectionComment
         '
         Me.GroupBox_SectionComment.Controls.Add(Me.Button_SectionCommentChange)
@@ -196,6 +190,16 @@ Partial Class Form1
         Me.GroupBox_SectionComment.TabIndex = 3
         Me.GroupBox_SectionComment.TabStop = False
         Me.GroupBox_SectionComment.Text = "Abschnittskommentar"
+        '
+        'Button_SectionCommentChange
+        '
+        Me.Button_SectionCommentChange.Enabled = False
+        Me.Button_SectionCommentChange.Location = New System.Drawing.Point(184, 136)
+        Me.Button_SectionCommentChange.Name = "Button_SectionCommentChange"
+        Me.Button_SectionCommentChange.Size = New System.Drawing.Size(84, 24)
+        Me.Button_SectionCommentChange.TabIndex = 4
+        Me.Button_SectionCommentChange.Text = "übernehmen"
+        Me.Button_SectionCommentChange.UseVisualStyleBackColor = True
         '
         'TextBox_SectionComment
         '
@@ -208,15 +212,11 @@ Partial Class Form1
         Me.TextBox_SectionComment.TabIndex = 0
         Me.TextBox_SectionComment.WordWrap = False
         '
-        'Button_SectionCommentChange
+        'IniFile1
         '
-        Me.Button_SectionCommentChange.Enabled = False
-        Me.Button_SectionCommentChange.Location = New System.Drawing.Point(184, 136)
-        Me.Button_SectionCommentChange.Name = "Button_SectionCommentChange"
-        Me.Button_SectionCommentChange.Size = New System.Drawing.Size(84, 24)
-        Me.Button_SectionCommentChange.TabIndex = 4
-        Me.Button_SectionCommentChange.Text = "übernehmen"
-        Me.Button_SectionCommentChange.UseVisualStyleBackColor = True
+        Me.IniFile1.AutoSave = True
+        Me.IniFile1.CommentPrefix = Global.Microsoft.VisualBasic.ChrW(59)
+        Me.IniFile1.FilePath = "D:\Dokumente\NeueDatei.ini"
         '
         'Form1
         '
@@ -253,7 +253,6 @@ Partial Class Form1
     Friend WithEvents SpeichernToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents SpeichernUnterToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
-    Private WithEvents IniFile1 As SchlumpfSoft.Controls.IniFileControl.IniFile
     Private WithEvents GroupBox_Sections As GroupBox
     Private WithEvents ListBox_Sections As ListBox
     Private WithEvents Button_DeleteSection As Button
@@ -262,4 +261,5 @@ Partial Class Form1
     Private WithEvents GroupBox_SectionComment As GroupBox
     Private WithEvents Button_SectionCommentChange As Button
     Private WithEvents TextBox_SectionComment As TextBox
+    Private WithEvents IniFile1 As SchlumpfSoft.Controls.IniFileControl.IniFile
 End Class
