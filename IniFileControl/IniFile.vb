@@ -208,9 +208,7 @@ Public Class IniFile : Inherits Component
     ''' </summary>
     ''' <returns></returns>
     Public Function GetFileComment() As String()
-
         Return Me._FileComment.ToArray
-
     End Function
 
     ''' <summary>
@@ -313,6 +311,16 @@ Public Class IniFile : Inherits Component
         RaiseEvent SectionsChanged(Me, EventArgs.Empty)
 
     End Sub
+
+    ''' <summary>
+    ''' Gibt die Kommentarzeilen für einen Abschnitt zurück
+    ''' </summary>
+    ''' <param name="Name">
+    ''' Name des Abschnitts
+    ''' </param>
+    Public Function GetSectionComment(Name As String) As String()
+        Return Me._SectionsComments.Item(Name).ToArray
+    End Function
 
     ''' <summary>
     ''' Erzeugt den Dateiinhalt

@@ -39,9 +39,13 @@ Partial Class Form1
         Me.Button_AddSection = New System.Windows.Forms.Button()
         Me.ListBox_Sections = New System.Windows.Forms.ListBox()
         Me.IniFile1 = New SchlumpfSoft.Controls.IniFileControl.IniFile()
+        Me.GroupBox_SectionComment = New System.Windows.Forms.GroupBox()
+        Me.TextBox_SectionComment = New System.Windows.Forms.TextBox()
+        Me.Button_SectionCommentChange = New System.Windows.Forms.Button()
         Me.MenuStrip_HauptMenu.SuspendLayout()
         Me.GroupBox_FileComment.SuspendLayout()
         Me.GroupBox_Sections.SuspendLayout()
+        Me.GroupBox_SectionComment.SuspendLayout()
         Me.SuspendLayout()
         '
         'MenuStrip_HauptMenu
@@ -182,11 +186,44 @@ Partial Class Form1
         Me.IniFile1.CommentPrefix = Global.Microsoft.VisualBasic.ChrW(59)
         Me.IniFile1.FilePath = "D:\Dokumente\NeueDatei.ini"
         '
+        'GroupBox_SectionComment
+        '
+        Me.GroupBox_SectionComment.Controls.Add(Me.Button_SectionCommentChange)
+        Me.GroupBox_SectionComment.Controls.Add(Me.TextBox_SectionComment)
+        Me.GroupBox_SectionComment.Location = New System.Drawing.Point(328, 32)
+        Me.GroupBox_SectionComment.Name = "GroupBox_SectionComment"
+        Me.GroupBox_SectionComment.Size = New System.Drawing.Size(276, 164)
+        Me.GroupBox_SectionComment.TabIndex = 3
+        Me.GroupBox_SectionComment.TabStop = False
+        Me.GroupBox_SectionComment.Text = "Abschnittskommentar"
+        '
+        'TextBox_SectionComment
+        '
+        Me.TextBox_SectionComment.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.TextBox_SectionComment.Location = New System.Drawing.Point(8, 20)
+        Me.TextBox_SectionComment.Multiline = True
+        Me.TextBox_SectionComment.Name = "TextBox_SectionComment"
+        Me.TextBox_SectionComment.ScrollBars = System.Windows.Forms.ScrollBars.Both
+        Me.TextBox_SectionComment.Size = New System.Drawing.Size(260, 112)
+        Me.TextBox_SectionComment.TabIndex = 0
+        Me.TextBox_SectionComment.WordWrap = False
+        '
+        'Button_SectionCommentChange
+        '
+        Me.Button_SectionCommentChange.Enabled = False
+        Me.Button_SectionCommentChange.Location = New System.Drawing.Point(184, 136)
+        Me.Button_SectionCommentChange.Name = "Button_SectionCommentChange"
+        Me.Button_SectionCommentChange.Size = New System.Drawing.Size(84, 24)
+        Me.Button_SectionCommentChange.TabIndex = 4
+        Me.Button_SectionCommentChange.Text = "übernehmen"
+        Me.Button_SectionCommentChange.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(612, 408)
+        Me.Controls.Add(Me.GroupBox_SectionComment)
         Me.Controls.Add(Me.GroupBox_Sections)
         Me.Controls.Add(Me.GroupBox_FileComment)
         Me.Controls.Add(Me.MenuStrip_HauptMenu)
@@ -198,6 +235,8 @@ Partial Class Form1
         Me.GroupBox_FileComment.ResumeLayout(False)
         Me.GroupBox_FileComment.PerformLayout()
         Me.GroupBox_Sections.ResumeLayout(False)
+        Me.GroupBox_SectionComment.ResumeLayout(False)
+        Me.GroupBox_SectionComment.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -220,4 +259,7 @@ Partial Class Form1
     Private WithEvents Button_DeleteSection As Button
     Private WithEvents Button_RenameSection As Button
     Private WithEvents Button_AddSection As Button
+    Private WithEvents GroupBox_SectionComment As GroupBox
+    Private WithEvents Button_SectionCommentChange As Button
+    Private WithEvents TextBox_SectionComment As TextBox
 End Class

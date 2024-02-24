@@ -138,14 +138,27 @@ Public Class Form1
         Me.Button_AddSection.Enabled = True
     End Sub
 
-    Private Sub ListBox_Sections_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox_Sections.SelectedIndexChanged
+    Private Sub ListBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles _
+        ListBox_Sections.SelectedIndexChanged
         If CType(sender, ListBox).SelectedIndex <> -1 Then
             Me.Button_RenameSection.Enabled = True
             Me.Button_DeleteSection.Enabled = True
+            Me.FillTextBoxSectionComment()
+            Me.Button_SectionCommentChange.Enabled = False
         Else
             Me.Button_RenameSection.Enabled = False
             Me.Button_DeleteSection.Enabled = False
+            Me.ClearTextBoxSectionComment()
+            Me.Button_SectionCommentChange.Enabled = False
         End If
+    End Sub
+
+    Private Sub ClearTextBoxSectionComment()
+        Me.TextBox_SectionComment.Text = ""
+    End Sub
+
+    Private Sub FillTextBoxSectionComment()
+        Me.TextBox_SectionComment.Lines = Me.IniFile1.GetSectionComment(Me.ListBox_Sections.SelectedItem.ToString)
     End Sub
 
 End Class
