@@ -47,6 +47,11 @@ Public Class IniFile : Inherits Component
     Public Event SectionNameExist(sender As Object, e As EventArgs)
 
     ''' <summary>
+    ''' Wird ausgelöst wenn sich der Abschnittskommentar geändert hat
+    ''' </summary>
+    Public Event SectionCommentChanged(sender As Object, e As EventArgs)
+
+    ''' <summary>
     ''' Gibt das Prefixzeichen für Kommentare zurück oder legt dieses fest.
     ''' </summary>
     <Browsable(True)>
@@ -214,14 +219,14 @@ Public Class IniFile : Inherits Component
     ''' <summary>
     ''' Setzt den Dateikommentar.
     ''' </summary>
-    ''' <param name="Lines">
+    ''' <param name="CommentLines">
     ''' Die Zeilen des Dateikommentars.
     ''' </param>
-    Public Sub SetFileComment(Lines() As String)
+    Public Sub SetFileComment(CommentLines() As String)
 
         'geänderten Dateikommentar übernehmen und eventuell speichern
         Me._FileComment.Clear()
-        Me._FileComment.AddRange(Lines)
+        Me._FileComment.AddRange(CommentLines)
         If Me._AutoSave Then Me.SaveFile()
         RaiseEvent FileCommentChanged(Me, EventArgs.Empty)
 
@@ -321,6 +326,25 @@ Public Class IniFile : Inherits Component
     Public Function GetSectionComment(Name As String) As String()
         Return Me._SectionsComments.Item(Name).ToArray
     End Function
+
+    ''' <summary>
+    ''' Setzt den Kommentar für einen Abschnitt.
+    ''' </summary>
+    ''' <param name="Name">
+    ''' Name des Abschnitts.
+    ''' </param>
+    ''' <param name="CommentLines">
+    ''' Kommentarzeilen
+    ''' </param>
+    Public Sub SetSectionComment(Name As String, CommentLines() As String)
+
+        'geänderten Abschnittskommentar übernehmen und eventuell speichern
+        Me._SectionsComments.Item(Name).Clear()
+        Me._SectionsComments.Item(Name).AddRange(CommentLines)
+        If Me._AutoSave Then Me.SaveFile()
+        RaiseEvent SectionCommentChanged(Me, EventArgs.Empty)
+
+    End Sub
 
     ''' <summary>
     ''' Erzeugt den Dateiinhalt

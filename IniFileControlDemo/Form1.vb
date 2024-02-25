@@ -48,14 +48,22 @@ Public Class Form1
         Me.IniFile1.SaveFile(sfd.FileName)
     End Sub
 
-    Private Sub TextBox_FileComment_TextChanged(sender As Object, e As EventArgs) Handles TextBox_FileComment.TextChanged
-        'Button zum übernehmen der Kommentaränderungen aktivieren
-        Me.Button_FileCommentChange.Enabled = True
+    Private Sub TextBox_TextChanged(sender As Object, e As EventArgs) Handles _
+        TextBox_FileComment.TextChanged, TextBox_SectionComment.TextChanged
+        Select Case True
+            Case sender Is Me.TextBox_FileComment
+                'Button zum übernehmen der Dateikommentaränderungen aktivieren
+                Me.Button_FileCommentChange.Enabled = True
+            Case sender Is Me.TextBox_SectionComment
+                'Button zum übernehmen der Abschnittskommentaränderungen aktivieren
+                Me.Button_SectionCommentChange.Enabled = True
+        End Select
     End Sub
 
     Private Sub Button_Click(sender As Object, e As EventArgs) Handles _
             Button_FileCommentChange.Click, Button_AddSection.Click,
-            Button_RenameSection.Click, Button_DeleteSection.Click
+            Button_RenameSection.Click, Button_DeleteSection.Click,
+            Button_SectionCommentChange.Click
         Select Case True
             Case sender Is Me.Button_FileCommentChange
                 'geänderten Dateikommentar übernehmen
@@ -69,6 +77,11 @@ Public Class Form1
             Case sender Is Me.Button_DeleteSection
                 'Abschnitt löschen
                 Me.DeleteSection()
+            Case sender Is Me.Button_SectionCommentChange
+                'geänderten Abschnittskommentar übernehmen
+                Me.IniFile1.SetSectionComment(
+                    Me.ListBox_Sections.SelectedItem.ToString,
+                    Me.TextBox_SectionComment.Lines)
         End Select
     End Sub
 
@@ -127,8 +140,13 @@ Public Class Form1
             MessageBoxIcon.Error)
     End Sub
 
+    Private Sub IniFile1_SectionCommentChanged(sender As Object, e As EventArgs) Handles IniFile1.SectionCommentChanged
+        Me.FillTextBoxSectionComment()
+    End Sub
+
     Private Sub FillTextBoxFileComments()
         Me.TextBox_FileComment.Lines = Me.IniFile1.GetFileComment
+        Me.Button_FileCommentChange.Enabled = False
     End Sub
 
     Private Sub FillListBoxSections()
@@ -144,21 +162,21 @@ Public Class Form1
             Me.Button_RenameSection.Enabled = True
             Me.Button_DeleteSection.Enabled = True
             Me.FillTextBoxSectionComment()
-            Me.Button_SectionCommentChange.Enabled = False
         Else
             Me.Button_RenameSection.Enabled = False
             Me.Button_DeleteSection.Enabled = False
             Me.ClearTextBoxSectionComment()
-            Me.Button_SectionCommentChange.Enabled = False
         End If
     End Sub
 
     Private Sub ClearTextBoxSectionComment()
         Me.TextBox_SectionComment.Text = ""
+        Me.Button_SectionCommentChange.Enabled = False
     End Sub
 
     Private Sub FillTextBoxSectionComment()
         Me.TextBox_SectionComment.Lines = Me.IniFile1.GetSectionComment(Me.ListBox_Sections.SelectedItem.ToString)
+        Me.Button_SectionCommentChange.Enabled = False
     End Sub
 
 End Class

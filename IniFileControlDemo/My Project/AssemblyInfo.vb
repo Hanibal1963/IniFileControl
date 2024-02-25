@@ -3,7 +3,6 @@ Imports System.Reflection
 Imports System.Runtime.InteropServices
 
 
-
 <Assembly: AssemblyTitle("IniFileControlDemo")>
 <Assembly: AssemblyDescription("")>
 <Assembly: AssemblyCompany("Andreas Sauer")>
@@ -13,14 +12,10 @@ Imports System.Runtime.InteropServices
 
 <Assembly: ComVisible(False)>
 
-
 <Assembly: Guid("a3911736-8f42-448f-87a9-4991dcf65e3b")>
 
 
+<Assembly: AssemblyVersion("1.2024.0225.64")>
+<Assembly: AssemblyFileVersion("1.2024.0225.64")>
 
-
-
-<Assembly: AssemblyVersion("1.2024.0224.61")>
-<Assembly: AssemblyFileVersion("1.2024.0224.61")>
-
-<assembly: AssemblyInformationalVersion("0.2024.0224.61")>
+<assembly: AssemblyInformationalVersion("0.2024.0225.64")>
