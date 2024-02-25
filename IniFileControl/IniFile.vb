@@ -383,10 +383,11 @@ Public Class IniFile : Inherits Component
                 filecontent.Add(entryline)
             Next
 
+            'Leerzeile anfügen
+            filecontent.Add($"")
+
         Next
 
-        'Leerzeile anfügen
-        filecontent.Add($"")
 
         'Dateiinhalt erzeugen
         Me._FileContent = filecontent.ToArray
