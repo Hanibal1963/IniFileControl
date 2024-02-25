@@ -114,21 +114,13 @@ Public Class IniFile : Inherits Component
     Public Sub New(FilePath As String, Optional CommentPrefix As Char = ";"c)
 
         MyBase.New
-
-        'Standardwerte festlegen
-        _FilePath = FilePath
-        _CommentPrefix = CommentPrefix
-        _AutoSave = False
-        _FileComment = New List(Of String)
-
-        'anfänglichen Dateiinhalt erzeugen und eventuell speichern
-        CreateTemplate()
-        If _AutoSave Then Me.SaveFile()
-
-        'Dateiinhalt analysieren
-        ParseFileContent()
+        CreateStandardValues(FilePath, CommentPrefix) 'Standardwerte festlegen
+        CreateTemplate() 'anfänglichen Dateiinhalt erzeugen
+        If _AutoSave Then Me.SaveFile() 'eventuell speichern
+        ParseFileContent() 'Dateiinhalt analysieren
 
     End Sub
+
 
     ''' <summary>
     ''' Lädt die angegebene Datei
@@ -253,10 +245,8 @@ Public Class IniFile : Inherits Component
             Exit Sub
         End If
 
-        'Abschnittsname hinzufügen und eventuell speichern
-        _Sections.Add(Name, New Dictionary(Of String, String))
-        _SectionsComments.Add(Name, New List(Of String))
-        If _AutoSave Then Me.SaveFile()
+        AddNewSection(Name) 'neuen Abschnitt einfügen
+        If _AutoSave Then Me.SaveFile() 'eventuell speichern
         RaiseEvent SectionsChanged(Me, EventArgs.Empty)
 
     End Sub

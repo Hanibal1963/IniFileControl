@@ -9,6 +9,27 @@ Imports System.Collections.Generic
 Module HelperFunctions
 
     ''' <summary>
+    ''' fügt einen neuen Abschnitt hinzu
+    ''' </summary>
+    ''' <param name="Name">Name des neuen Abschnitts</param>
+    Friend Sub AddNewSection(Name As String)
+        _Sections.Add(Name, New Dictionary(Of String, String)) 'Name-Wert-Paar hinzufügen
+        _SectionsComments.Add(Name, New List(Of String)) 'Name-Kommentar-Paar hinzufügen
+    End Sub
+
+    ''' <summary>
+    ''' Legt die anfänglichen Standardwerte fest
+    ''' </summary>
+    ''' <param name="FilePath">Pfad und Name der Datei</param>
+    ''' <param name="CommentPrefix">Prefixzeichen für Kommentare</param>
+    Friend Sub CreateStandardValues(FilePath As String, CommentPrefix As Char)
+        _FilePath = FilePath
+        _CommentPrefix = CommentPrefix
+        _AutoSave = False
+        _FileComment = New List(Of String)
+    End Sub
+
+    ''' <summary>
     ''' Benennt das Key-Comment-Paar eines Abschnitts um. 
     ''' </summary>
     ''' <param name="oldName">alter Name</param>
@@ -37,7 +58,6 @@ Module HelperFunctions
         _Sections.Add(NewName, oldvalue)
 
     End Sub
-
 
     ''' <summary>
     ''' Erzeugt den Dateiinhalt
@@ -117,6 +137,8 @@ Module HelperFunctions
         Next
 
     End Sub
+
+#Region "interne Methoden"
 
     ''' <summary>
     ''' Analysiert eine Zeile.
@@ -206,12 +228,12 @@ Module HelperFunctions
     ''' Initialisiert die Variablen für den Parser
     ''' </summary>
     Private Sub InitParseVariables()
-
         _FileComment = New List(Of String)
         _Sections = New Dictionary(Of String, Dictionary(Of String, String))
         _SectionsComments = New Dictionary(Of String, List(Of String))
-
     End Sub
+
+#End Region
 
 End Module
 
