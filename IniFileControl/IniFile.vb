@@ -247,6 +247,22 @@ Public Class IniFile : Inherits Component
     End Function
 
     ''' <summary>
+    ''' Gibt die Namen der Einträge eines Abschnitts zurück
+    ''' </summary>
+    ''' <param name="SectionName">
+    ''' Abschnittsname
+    ''' </param>
+    Public Function GetEntryNames(SectionName As String) As String()
+
+        Dim names As New List(Of String)
+        For Each name As String In Me._Sections.Item(SectionName).Keys
+            names.Add(name)
+        Next
+        Return names.ToArray
+
+    End Function
+
+    ''' <summary>
     ''' Fügt einen neuen Abschnitt hinzu.
     ''' </summary>
     ''' <param name="Name">
@@ -553,5 +569,6 @@ Public Class IniFile : Inherits Component
         Me._SectionsComments = New Dictionary(Of String, List(Of String))
 
     End Sub
+
 
 End Class

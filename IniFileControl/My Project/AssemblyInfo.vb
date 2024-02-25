@@ -14,8 +14,8 @@ Imports Microsoft.VisualBasic
 
 <Assembly: ComVisible(False)>
 
-<Assembly: AssemblyVersion("1.2024.0225.66")>
-<Assembly: AssemblyFileVersion("1.2024.0225.66")>
+<Assembly: AssemblyVersion("1.2024.0225.68")>
+<Assembly: AssemblyFileVersion("1.2024.0225.68")>
 
-<assembly: AssemblyInformationalVersion("0.2024.0225.66")>
+<assembly: AssemblyInformationalVersion("0.2024.0225.68")>
 
