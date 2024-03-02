@@ -270,7 +270,7 @@ Public Class IniFile
     ''' Fügt einen neuen Abschnitt hinzu.
     ''' </summary>
     ''' <param name="Name">Name des neuen Abschnitts</param>
-    Public Sub AddSectionName(Name As String)
+    Public Sub AddSection(Name As String)
 
         'Prüfen ob der Name vorhanden ist
         If _Sections.ContainsKey(Name) Then

@@ -362,7 +362,7 @@ Public Class Form1
             $"Geben Sie den neuen Abschnittsname ein",
             $"Abschnitt hinzufügen",
             $"neuer Abschnitt")
-        Me.IniFile1.AddSectionName(newsection)
+        Me.IniFile1.AddSection(newsection)
     End Sub
 
     Private Sub AddEntry()
