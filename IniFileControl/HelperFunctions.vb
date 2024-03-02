@@ -9,15 +9,6 @@ Imports System.Collections.Generic
 Module HelperFunctions
 
     ''' <summary>
-    ''' fügt einen neuen Eintrag in einen Abschnitt ein.
-    ''' </summary>
-    ''' <param name="Section">Name des Abschnitts in den der neue Eintrag eingefügt werden soll.</param>
-    ''' <param name="Name">Name des neuen Eintrags.</param>
-    Friend Sub AddNewEntry(Section As String, Name As String)
-        _Sections.Item(Section).Add(Name, $"")
-    End Sub
-
-    ''' <summary>
     ''' Fügt einen neuen Abschnitt hinzu.
     ''' </summary>
     ''' <param name="Name">Name des neuen Abschnitts</param>
@@ -27,15 +18,12 @@ Module HelperFunctions
     End Sub
 
     ''' <summary>
-    ''' Legt die anfänglichen Standardwerte fest
+    ''' fügt einen neuen Eintrag in einen Abschnitt ein.
     ''' </summary>
-    ''' <param name="FilePath">Pfad und Name der Datei</param>
-    ''' <param name="CommentPrefix">Prefixzeichen für Kommentare</param>
-    Friend Sub CreateStandardValues(FilePath As String, CommentPrefix As Char)
-        _FilePath = FilePath
-        _CommentPrefix = CommentPrefix
-        _AutoSave = False
-        _FileComment = New List(Of String)
+    ''' <param name="Section">Name des Abschnitts in den der neue Eintrag eingefügt werden soll.</param>
+    ''' <param name="Name">Name des neuen Eintrags.</param>
+    Friend Sub AddNewEntry(Section As String, Name As String)
+        _Sections.Item(Section).Add(Name, $"")
     End Sub
 
     ''' <summary>
@@ -43,12 +31,12 @@ Module HelperFunctions
     ''' </summary>
     ''' <param name="oldName">alter Name</param>
     ''' <param name="newName">neuer Name</param>
-    Friend Sub RenameSectionComment(oldName As String, newName As String)
+    Friend Sub RenameSectionComment(OldName As String, newName As String)
 
         'alten Kommentar speichern, Abschnitt entfernen und
         'neuen Abschnitt mit altem Kommentar erstellen
-        Dim oldcomment = _SectionsComments.Item(oldName)
-        Dim unused1 = _SectionsComments.Remove(oldName)
+        Dim oldcomment = _SectionsComments.Item(OldName)
+        Dim unused1 = _SectionsComments.Remove(OldName)
         _SectionsComments.Add(newName, oldcomment)
 
     End Sub
@@ -66,6 +54,34 @@ Module HelperFunctions
         Dim unused = _Sections.Remove(OldName)
         _Sections.Add(NewName, oldvalue)
 
+    End Sub
+
+    ''' <summary>
+    ''' Benennt einen Eintrag in einem Abschnitt um.
+    ''' </summary>
+    ''' <param name="Section">Abschnitt in dem der Eintrag umbenannt werden soll.</param>
+    ''' <param name="OldName">Alter Eintragsname.</param>
+    ''' <param name="NewName">Neuer Eintragsname.</param>
+    Friend Sub RenameEntryvalue(Section As String, OldName As String, NewName As String)
+
+        'alten Wert speichern, Eintrag entfernen und
+        'neuen Eintrag mit altem Wert erstellen
+        Dim oldvalue = _Sections.Item(Section).Item(OldName)
+        Dim unused = _Sections.Item(Section).Remove(OldName)
+        _Sections.Item(Section).Add(NewName, oldvalue)
+
+    End Sub
+
+    ''' <summary>
+    ''' Legt die anfänglichen Standardwerte fest
+    ''' </summary>
+    ''' <param name="FilePath">Pfad und Name der Datei</param>
+    ''' <param name="CommentPrefix">Prefixzeichen für Kommentare</param>
+    Friend Sub CreateStandardValues(FilePath As String, CommentPrefix As Char)
+        _FilePath = FilePath
+        _CommentPrefix = CommentPrefix
+        _AutoSave = False
+        _FileComment = New List(Of String)
     End Sub
 
     ''' <summary>

@@ -106,7 +106,9 @@ Public Class Form1
         $"Geben Sie den neuen Eintragsname für ""{Me.ListBox_Entrys.SelectedItem}"" ein.",
         $"Eintrag umbenennen",
         $"neuer Eintrag")
-        Me.IniFile1.RenameEntry(Me.ListBox_Sections.SelectedItem.ToString, newentry)
+        Me.IniFile1.RenameEntry(
+            Me.ListBox_Sections.SelectedItem.ToString,
+            Me.ListBox_Entrys.SelectedItem.ToString, newentry)
     End Sub
 
     Private Sub AddEnty()
