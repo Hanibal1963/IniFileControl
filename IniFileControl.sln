@@ -7,7 +7,6 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "IniFileControl", "IniFileCo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Projektmappenelemente", "Projektmappenelemente", "{61FA0F5D-230B-4633-BB33-F599CC9A31E3}"
 	ProjectSection(SolutionItems) = preProject
-		IniFileControl Entwurf 1.pdf = IniFileControl Entwurf 1.pdf
 		ReadMe.md = ReadMe.md
 	EndProjectSection
 EndProject

@@ -9,7 +9,16 @@ Imports System.Collections.Generic
 Module HelperFunctions
 
     ''' <summary>
-    ''' fügt einen neuen Abschnitt hinzu
+    ''' fügt einen neuen Eintrag in einen Abschnitt ein.
+    ''' </summary>
+    ''' <param name="Section">Name des Abschnitts in den der neue Eintrag eingefügt werden soll.</param>
+    ''' <param name="Name">Name des neuen Eintrags.</param>
+    Friend Sub AddNewEntry(Section As String, Name As String)
+        _Sections.Item(Section).Add(Name, $"")
+    End Sub
+
+    ''' <summary>
+    ''' Fügt einen neuen Abschnitt hinzu.
     ''' </summary>
     ''' <param name="Name">Name des neuen Abschnitts</param>
     Friend Sub AddNewSection(Name As String)

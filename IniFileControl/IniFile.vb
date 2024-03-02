@@ -33,7 +33,8 @@ Public Class IniFile : Inherits Component
     Public Event SectionsChanged(sender As Object, e As EventArgs)
 
     ''' <summary>
-    ''' Wird ausgelöst wenn beim anlegen eines neuen Abschnitts der Name bereits vorhanden ist
+    ''' Wird ausgelöst wenn beim anlegen eines neuen Abschnitts oder 
+    ''' umbnennen eines Abschnitts der Name bereits vorhanden ist.
     ''' </summary>
     Public Event SectionNameExist(sender As Object, e As EventArgs)
 
@@ -42,6 +43,16 @@ Public Class IniFile : Inherits Component
     ''' </summary>
     Public Event SectionCommentChanged(sender As Object, e As EventArgs)
 
+    ''' <summary>
+    ''' Wird ausgelöst wenn beim anlegen eines neuen Eintrags oder 
+    ''' umbenennen eines Eintrags der Name bereitsvorhanden ist.
+    ''' </summary>
+    Public Event EntrynameExist(sender As Object, e As EventArgs)
+
+    ''' <summary>
+    ''' wird ausgelöst wenn sich die Liste der Einträge geändert hat.
+    ''' </summary>
+    Public Event EntrysChanged(sender As Object, e As EventArgs)
 
     ''' <summary>
     ''' Gibt das Prefixzeichen für Kommentare zurück oder legt dieses fest.
@@ -309,6 +320,54 @@ Public Class IniFile : Inherits Component
         _SectionsComments.Item(Name).AddRange(CommentLines)
         If _AutoSave Then Me.SaveFile()
         RaiseEvent SectionCommentChanged(Me, EventArgs.Empty)
+
+    End Sub
+
+    ''' <summary>
+    ''' Fügt einen neuen Eintrag in die Liste der Eintragsnamen ein.
+    ''' </summary>
+    ''' <param name="Section">Abschnitt in den der Eintrag eingefügt werden soll.</param>
+    ''' <param name="Name">Name des Eintrags.</param>
+    Public Sub AddEntry(Section As String, Name As String)
+
+        'Prüfen ob der Name vorhanden ist
+        If _Sections.Item(Section).ContainsKey(Name) Then
+            RaiseEvent EntrynameExist(Me, EventArgs.Empty)
+            Exit Sub
+        End If
+
+        AddNewEntry(Section, Name) 'neuen Eintrag einfügen
+        If _AutoSave Then Me.SaveFile() 'eventuell speichern)
+        RaiseEvent EntrysChanged(Me, EventArgs.Empty)
+
+    End Sub
+
+    ''' <summary>
+    ''' Benennt einen Eintrag in einem Abschnitt um.
+    ''' </summary>
+    ''' <param name="Section">Abschnitt der den Eintrag enthält.</param>
+    ''' <param name="NewName">Neuer Name des Eintrags.</param>
+    Public Sub RenameEntry(Section As String, NewName As String)
+
+
+
+
+
+
+
+    End Sub
+
+    ''' <summary>
+    ''' Löscht einen Eintrag aus einem Abschnitt.
+    ''' </summary>
+    ''' <param name="Section">Abschnitt aus dem der Eintrag gelöscht werden soll.</param>
+    ''' <param name="Entry">Eintrag der gelöscht werden soll.</param>
+    Public Sub DeleteEntry(Section As String, Entry As Object)
+
+
+
+
+
 
     End Sub
 

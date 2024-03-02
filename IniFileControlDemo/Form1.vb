@@ -54,7 +54,7 @@ Public Class Form1
         Select Case True
             Case sender Is Me.Button_FileCommentChange
                 'geänderten Dateikommentar übernehmen
-                Me.IniFile1.SetFileComment(Me.TextBox_FileComment.Lines)
+                Me.SetFileComment()
 
             Case sender Is Me.Button_AddSection
                 'Abschnitt hinzufügen
@@ -70,19 +70,66 @@ Public Class Form1
 
             Case sender Is Me.Button_SectionCommentChange
                 'geänderten Abschnittskommentar übernehmen
-                Me.IniFile1.SetSectionComment(
-                    Me.ListBox_Sections.SelectedItem.ToString,
-                    Me.TextBox_SectionComment.Lines)
+                Me.SetSectionComment()
+
             Case sender Is Me.Button_AddEntry
                 'Eintrag hinzufügen
+                Me.AddEnty()
 
             Case sender Is Me.Button_RenameEntry
                 'Eintrag umbenennen
+                Me.RenameEntry()
 
             Case sender Is Me.Button_DeleteEntry
                 'Eintrag löschen
+                Me.DeleteEnty()
 
         End Select
+
+    End Sub
+
+    Private Sub DeleteEnty()
+        Select Case MessageBox.Show(
+            $"Wollen Sie den Eintrag ""{Me.ListBox_Entrys.SelectedItem}"" wirklich löschen",
+            $"Eintrag löschen",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Question)
+            Case DialogResult.Yes
+                Me.IniFile1.DeleteEntry(Me.ListBox_Sections.SelectedItem.ToString, Me.ListBox_Entrys.SelectedItem)
+            Case DialogResult.No
+
+        End Select
+    End Sub
+
+    Private Sub RenameEntry()
+        Dim newentry As String = InputBox(
+        $"Geben Sie den neuen Eintragsname für ""{Me.ListBox_Entrys.SelectedItem}"" ein.",
+        $"Eintrag umbenennen",
+        $"neuer Eintrag")
+        Me.IniFile1.RenameEntry(Me.ListBox_Sections.SelectedItem.ToString, newentry)
+    End Sub
+
+    Private Sub AddEnty()
+        Dim newentry As String = InputBox(
+            $"Geben Sie den neuen Eintragsname ein",
+            $"Eintrag hinzufügen",
+            $"neuer Eintrag")
+        Me.IniFile1.AddEntry(Me.ListBox_Sections.SelectedItem.ToString, newentry)
+    End Sub
+
+    Private Sub SetSectionComment()
+
+        'Den Text aus der Textbox in den in der Listbox ausgewählten Abschnitt übenehmen 
+        Me.IniFile1.SetSectionComment(
+            Me.ListBox_Sections.SelectedItem.ToString,
+            Me.TextBox_SectionComment.Lines)
+
+    End Sub
+
+    Private Sub SetFileComment()
+
+        'Den Text aus der Textbox übergeben
+        Me.IniFile1.SetFileComment(Me.TextBox_FileComment.Lines)
 
     End Sub
 
@@ -215,6 +262,10 @@ Public Class Form1
         Me.FillListBox(Me.ListBox_Sections)
     End Sub
 
+    Private Sub IniFile1_EntrysChanged(sender As Object, e As EventArgs) Handles IniFile1.EntrysChanged
+        Me.FillListBox(Me.ListBox_Entrys)
+    End Sub
+
     Private Sub IniFile1_SectionNameExist(sender As Object, e As EventArgs) Handles IniFile1.SectionNameExist
         Dim unused = MessageBox.Show(
             $"Der Abschnitt existiert bereits.",
@@ -225,6 +276,14 @@ Public Class Form1
 
     Private Sub IniFile1_SectionCommentChanged(sender As Object, e As EventArgs) Handles IniFile1.SectionCommentChanged
         Me.FillTextBox(Me.TextBox_SectionComment)
+    End Sub
+
+    Private Sub IniFile1_EntrynameExist(sender As Object, e As EventArgs) Handles IniFile1.EntrynameExist
+        Dim unused = MessageBox.Show(
+            $"Der Eintrag existiert bereits.",
+            $"Ein Fehler ist aufgetreten",
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Error)
     End Sub
 
     Private Sub DeleteSection()
