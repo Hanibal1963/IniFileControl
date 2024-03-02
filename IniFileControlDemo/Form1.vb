@@ -74,7 +74,7 @@ Public Class Form1
 
             Case sender Is Me.Button_AddEntry
                 'Eintrag hinzufügen
-                Me.AddEnty()
+                Me.AddEntry()
 
             Case sender Is Me.Button_RenameEntry
                 'Eintrag umbenennen
@@ -85,53 +85,6 @@ Public Class Form1
                 Me.DeleteEnty()
 
         End Select
-
-    End Sub
-
-    Private Sub DeleteEnty()
-        Select Case MessageBox.Show(
-            $"Wollen Sie den Eintrag ""{Me.ListBox_Entrys.SelectedItem}"" wirklich löschen",
-            $"Eintrag löschen",
-            MessageBoxButtons.YesNo,
-            MessageBoxIcon.Question)
-            Case DialogResult.Yes
-                Me.IniFile1.DeleteEntry(Me.ListBox_Sections.SelectedItem.ToString, Me.ListBox_Entrys.SelectedItem)
-            Case DialogResult.No
-
-        End Select
-    End Sub
-
-    Private Sub RenameEntry()
-        Dim newentry As String = InputBox(
-        $"Geben Sie den neuen Eintragsname für ""{Me.ListBox_Entrys.SelectedItem}"" ein.",
-        $"Eintrag umbenennen",
-        $"neuer Eintrag")
-        Me.IniFile1.RenameEntry(
-            Me.ListBox_Sections.SelectedItem.ToString,
-            Me.ListBox_Entrys.SelectedItem.ToString, newentry)
-    End Sub
-
-    Private Sub AddEnty()
-        Dim newentry As String = InputBox(
-            $"Geben Sie den neuen Eintragsname ein",
-            $"Eintrag hinzufügen",
-            $"neuer Eintrag")
-        Me.IniFile1.AddEntry(Me.ListBox_Sections.SelectedItem.ToString, newentry)
-    End Sub
-
-    Private Sub SetSectionComment()
-
-        'Den Text aus der Textbox in den in der Listbox ausgewählten Abschnitt übenehmen 
-        Me.IniFile1.SetSectionComment(
-            Me.ListBox_Sections.SelectedItem.ToString,
-            Me.TextBox_SectionComment.Lines)
-
-    End Sub
-
-    Private Sub SetFileComment()
-
-        'Den Text aus der Textbox übergeben
-        Me.IniFile1.SetFileComment(Me.TextBox_FileComment.Lines)
 
     End Sub
 
@@ -288,6 +241,22 @@ Public Class Form1
             MessageBoxIcon.Error)
     End Sub
 
+    Private Sub SetSectionComment()
+
+        'Den Text aus der Textbox in den in der Listbox ausgewählten Abschnitt übenehmen 
+        Me.IniFile1.SetSectionComment(
+            Me.ListBox_Sections.SelectedItem.ToString,
+            Me.TextBox_SectionComment.Lines)
+
+    End Sub
+
+    Private Sub SetFileComment()
+
+        'Den Text aus der Textbox übergeben
+        Me.IniFile1.SetFileComment(Me.TextBox_FileComment.Lines)
+
+    End Sub
+
     Private Sub DeleteSection()
         Select Case MessageBox.Show(
             $"Wollen Sie den Abschnitt ""{Me.ListBox_Sections.SelectedItem}"" wirklich löschen",
@@ -301,6 +270,21 @@ Public Class Form1
         End Select
     End Sub
 
+    Private Sub DeleteEnty()
+        Select Case MessageBox.Show(
+            $"Wollen Sie den Eintrag ""{Me.ListBox_Entrys.SelectedItem}"" wirklich löschen",
+            $"Eintrag löschen",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Question)
+            Case DialogResult.Yes
+                Me.IniFile1.DeleteEntry(
+                    Me.ListBox_Sections.SelectedItem.ToString,
+                    Me.ListBox_Entrys.SelectedItem.ToString)
+            Case DialogResult.No
+
+        End Select
+    End Sub
+
     Private Sub RenameSection()
         Dim newsection As String = InputBox(
         $"Geben Sie den neuen Abschnittsname für ""{Me.ListBox_Sections.SelectedItem}"" ein.",
@@ -309,12 +293,30 @@ Public Class Form1
         Me.IniFile1.RenameSection(Me.ListBox_Sections.SelectedItem.ToString, newsection)
     End Sub
 
+    Private Sub RenameEntry()
+        Dim newentry As String = InputBox(
+        $"Geben Sie den neuen Eintragsname für ""{Me.ListBox_Entrys.SelectedItem}"" ein.",
+        $"Eintrag umbenennen",
+        $"neuer Eintrag")
+        Me.IniFile1.RenameEntry(
+            Me.ListBox_Sections.SelectedItem.ToString,
+            Me.ListBox_Entrys.SelectedItem.ToString, newentry)
+    End Sub
+
     Private Sub AddSection()
         Dim newsection As String = InputBox(
             $"Geben Sie den neuen Abschnittsname ein",
             $"Abschnitt hinzufügen",
             $"neuer Abschnitt")
         Me.IniFile1.AddSectionName(newsection)
+    End Sub
+
+    Private Sub AddEntry()
+        Dim newentry As String = InputBox(
+            $"Geben Sie den neuen Eintragsname ein",
+            $"Eintrag hinzufügen",
+            $"neuer Eintrag")
+        Me.IniFile1.AddEntry(Me.ListBox_Sections.SelectedItem.ToString, newentry)
     End Sub
 
     Private Sub OpenFile()

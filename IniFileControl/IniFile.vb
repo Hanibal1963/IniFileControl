@@ -132,7 +132,6 @@ Public Class IniFile : Inherits Component
 
     End Sub
 
-
     ''' <summary>
     ''' Lädt die angegebene Datei
     ''' </summary>
@@ -288,18 +287,16 @@ Public Class IniFile : Inherits Component
     ''' <param name="NewName">neuer name des Abschnitts</param>
     Public Sub RenameSection(OldName As String, NewName As String)
 
-        'Ist der neue Name bereits vorhanden?
-        If Not _Sections.ContainsKey(NewName) Then
-            'Nein ->
-            RenameSectionValue(OldName, NewName) 'Name-Wert-Paar des Abschnitts umbenennen
-            RenameSectionComment(OldName, NewName) 'Name-Kommentar-Paar umbenennen
-            If _AutoSave Then Me.SaveFile() 'Änderungen eventuell speichern
-            RaiseEvent SectionsChanged(Me, EventArgs.Empty) 'Ereignis auslösen
-        Else
-            'Ja ->
+        'Ist der neue Name bereits vorhanden? Ja -> Ereignis und Ende
+        If _Sections.ContainsKey(NewName) Then
             RaiseEvent SectionNameExist(Me, EventArgs.Empty) 'Ereignis auslösen
             Exit Sub
         End If
+
+        RenameSectionValue(OldName, NewName) 'Name-Wert-Paar des Abschnitts umbenennen
+        RenameSectionComment(OldName, NewName) 'Name-Kommentar-Paar umbenennen
+        If _AutoSave Then Me.SaveFile() 'Änderungen eventuell speichern
+        RaiseEvent SectionsChanged(Me, EventArgs.Empty) 'Ereignis auslösen
 
     End Sub
 
@@ -310,17 +307,15 @@ Public Class IniFile : Inherits Component
     ''' <param name="NewName">Neuer Name des Eintrags.</param>
     Public Sub RenameEntry(Section As String, Oldname As String, NewName As String)
 
-        'Ist der neue Name bereits vorhanden?
-        If Not _Sections.Item(Section).ContainsKey(NewName) Then
-            'Nein ->
-            RenameEntryvalue(Section, Oldname, NewName) 'Name-Wert-Paar des Eintrags umbenennen
-            If _AutoSave Then Me.SaveFile() 'Änderungen eventuell speichern
-            RaiseEvent EntrysChanged(Me, EventArgs.Empty) 'Ereignis auslösen
-        Else
-            'Ja ->
+        'Ist der neue Name bereits vorhanden? Ja -> Ereignis und Ende
+        If _Sections.Item(Section).ContainsKey(NewName) Then
             RaiseEvent EntrynameExist(Me, EventArgs.Empty)
             Exit Sub
         End If
+
+        RenameEntryvalue(Section, Oldname, NewName) 'Name-Wert-Paar des Eintrags umbenennen
+        If _AutoSave Then Me.SaveFile() 'Änderungen eventuell speichern
+        RaiseEvent EntrysChanged(Me, EventArgs.Empty) 'Ereignis auslösen
 
     End Sub
 
@@ -330,12 +325,10 @@ Public Class IniFile : Inherits Component
     ''' <param name="Name">Name des Nbschnittes</param>
     Public Sub DeleteSection(Name As String)
 
-        'Abschnitt aus den Listen entfernen
+        'Abschnitt aus den Listen für Abschnitte und Abschnittskommentare entfernen
         Dim unused = _Sections.Remove(Name)
         Dim unused1 = _SectionsComments.Remove(Name)
-
-        'Änderungen eventuell speichern
-        If _AutoSave Then Me.SaveFile()
+        If _AutoSave Then Me.SaveFile() 'Änderungen eventuell speichern
         RaiseEvent SectionsChanged(Me, EventArgs.Empty)
 
     End Sub
@@ -345,12 +338,12 @@ Public Class IniFile : Inherits Component
     ''' </summary>
     ''' <param name="Section">Abschnitt aus dem der Eintrag gelöscht werden soll.</param>
     ''' <param name="Entry">Eintrag der gelöscht werden soll.</param>
-    Public Sub DeleteEntry(Section As String, Entry As Object)
+    Public Sub DeleteEntry(Section As String, Entry As String)
 
-
-
-
-
+        'Eintrag aus der Liste der Einträge entfernen
+        Dim unused = _Sections.Item(Section).Remove(Entry)
+        If _AutoSave Then Me.SaveFile() 'Änderungen eventuell speichern
+        RaiseEvent EntrysChanged(Me, EventArgs.Empty)
 
     End Sub
 
