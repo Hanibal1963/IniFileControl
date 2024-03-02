@@ -15,7 +15,7 @@ Imports Microsoft.VisualBasic
 ''' Control zum Verwalten von INI - Dateien
 ''' </summary>
 <Description("Control zum Verwalten von INI - Dateien")>
-<ProvideToolboxControlAttribute("SchlumpfSoft.Controls.IniFile", False)>
+<ProvideToolboxControl("SchlumpfSoft Controls", False)>
 Public Class IniFile
 
     Inherits Component
