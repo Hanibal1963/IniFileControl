@@ -124,9 +124,6 @@ Public Class Form1
 
     Private Sub FillListBox(ByRef Listbox As ListBox)
 
-
-        Debug.Print(Listbox.Name)
-
         'Einträge der Listbox löschen
         Listbox.Items.Clear()
         Listbox.SelectedIndex = -1
@@ -172,18 +169,8 @@ Public Class Form1
     Private Sub ListBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles _
         ListBox_Sections.SelectedIndexChanged, ListBox_Entrys.SelectedIndexChanged
 
-
-
-
-
         'Index merken
         Dim index As Integer = CType(sender, ListBox).SelectedIndex
-
-
-        Debug.Print(CType(sender, ListBox).Name & ": " & index.ToString)
-
-
-
 
         'In welcher Listbox hat sich der Index geändert?
         Select Case True
