@@ -14,45 +14,61 @@ Imports Microsoft.VisualBasic
 ''' <summary>
 ''' Control zum Verwalten von INI - Dateien
 ''' </summary>
-<ProvideToolboxControl("SchlumpfSoft.Controls.IniFile", False)>
-Public Class IniFile : Inherits Component
+<Description("Control zum Verwalten von INI - Dateien")>
+<ProvideToolboxControlAttribute("SchlumpfSoft.Controls.IniFile", False)>
+Public Class IniFile
+
+    Inherits Component
 
     ''' <summary>
     ''' Wird ausgelöst wenn sich der Dateiinhalt geändert hat.
     ''' </summary>
+    <Description("Wird ausgelöst wenn sich der Dateiinhalt geändert hat.")>
     Public Event FileContentChanged(sender As Object, e As EventArgs)
 
     ''' <summary>
     ''' Wird ausgelöst wenn sich der Dateikommentar geändert hat.
     ''' </summary>
+    <Description("Wird ausgelöst wenn sich der Dateikommentar geändert hat.")>
     Public Event FileCommentChanged(sender As Object, e As EventArgs)
 
     ''' <summary>
     ''' Wird ausgelöst wenn sich die Liste der Abschnitte geändert hat.
     ''' </summary>
+    <Description("Wird ausgelöst wenn sich die Liste der Abschnitte geändert hat.")>
     Public Event SectionsChanged(sender As Object, e As EventArgs)
 
     ''' <summary>
     ''' Wird ausgelöst wenn beim anlegen eines neuen Abschnitts oder 
     ''' umbnennen eines Abschnitts der Name bereits vorhanden ist.
     ''' </summary>
+    <Description("Wird ausgelöst wenn beim anlegen eines neuen Abschnitts oder umbnennen eines Abschnitts der Name bereits vorhanden ist.")>
     Public Event SectionNameExist(sender As Object, e As EventArgs)
 
     ''' <summary>
-    ''' Wird ausgelöst wenn sich der Abschnittskommentar geändert hat
+    ''' Wird ausgelöst wenn sich der Abschnittskommentar geändert hat.
     ''' </summary>
+    <Description("Wird ausgelöst wenn sich der Abschnittskommentar geändert hat.")>
     Public Event SectionCommentChanged(sender As Object, e As EventArgs)
 
     ''' <summary>
     ''' Wird ausgelöst wenn beim anlegen eines neuen Eintrags oder 
     ''' umbenennen eines Eintrags der Name bereitsvorhanden ist.
     ''' </summary>
+    <Description("Wird ausgelöst wenn beim anlegen eines neuen Eintrags oder umbenennen eines Eintrags der Name bereitsvorhanden ist.")>
     Public Event EntrynameExist(sender As Object, e As EventArgs)
 
     ''' <summary>
     ''' wird ausgelöst wenn sich die Liste der Einträge geändert hat.
     ''' </summary>
+    <Description("wird ausgelöst wenn sich die Liste der Einträge geändert hat.")>
     Public Event EntrysChanged(sender As Object, e As EventArgs)
+
+    ''' <summary>
+    ''' Wird ausgelöst wenn sich der Wert eines Eintrags in einem Abschnitt geändert hat.
+    ''' </summary>
+    <Description("Wird ausgelöst wenn sich der Wert eines Eintrags in einem Abschnitt geändert hat.")>
+    Public Event EntryValueChanged(sender As Object, e As EventArgs)
 
     ''' <summary>
     ''' Gibt das Prefixzeichen für Kommentare zurück oder legt dieses fest.
@@ -194,6 +210,13 @@ Public Class IniFile : Inherits Component
         IO.File.WriteAllLines(_FilePath, _FileContent)
 
     End Sub
+
+    ''' <summary>
+    ''' Gibt den Dateiinhalt zurück
+    ''' </summary>
+    Public Function GetFileContent() As String()
+        Return _FileContent
+    End Function
 
     ''' <summary>
     ''' Gibt den Dateikommentar zurück
@@ -356,6 +379,16 @@ Public Class IniFile : Inherits Component
     End Function
 
     ''' <summary>
+    ''' Gibt den Wert eines Eintrags aus einem Abschnitt zurück
+    ''' </summary>
+    ''' <param name="Section">Abschnitt aus dem der Wert des Eintrags gelesen werden soll.</param>
+    ''' <param name="Entry">Eintrag dessen Wert gelesen werden soll.</param>
+    ''' <returns>Wert des Eintrags.</returns>
+    Public Function GetEntryValue(Section As String, Entry As String) As String
+        Return _Sections.Item(Section).Item(Entry)
+    End Function
+
+    ''' <summary>
     ''' Setzt den Kommentar für einen Abschnitt.
     ''' </summary>
     ''' <param name="Name">Name des Abschnitts.</param>
@@ -365,8 +398,23 @@ Public Class IniFile : Inherits Component
         'geänderten Abschnittskommentar übernehmen und eventuell speichern
         _SectionsComments.Item(Name).Clear()
         _SectionsComments.Item(Name).AddRange(CommentLines)
-        If _AutoSave Then Me.SaveFile()
+        If _AutoSave Then Me.SaveFile() 'eventuell Änderung speichern
         RaiseEvent SectionCommentChanged(Me, EventArgs.Empty)
+
+    End Sub
+
+    ''' <summary>
+    ''' Setzt den Wert eines Eintrags in einem Abschnitt.
+    ''' </summary>
+    ''' <param name="Section">Abschnitt in dem der Wert eines Eintrags geändert werden soll.</param>
+    ''' <param name="Entry">Eintrag dessen Wert geändert werden soll.</param>
+    ''' <param name="Value">Der geänderte Wert.</param>
+    Public Sub SetEntryValue(Section As String, Entry As String, Value As String)
+
+        'geänderten Wert übenehmen
+        _Sections.Item(Section).Item(Entry) = Value
+        If _AutoSave Then Me.SaveFile() 'eventuell Änderung speichern
+        RaiseEvent EntryValueChanged(Me, EventArgs.Empty)
 
     End Sub
 

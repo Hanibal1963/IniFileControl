@@ -48,7 +48,8 @@ Public Class Form1
             Button_FileCommentChange.Click, Button_AddSection.Click,
             Button_RenameSection.Click, Button_DeleteSection.Click,
             Button_SectionCommentChange.Click, Button_AddEntry.Click,
-            Button_RenameEntry.Click, Button_DeleteEntry.Click
+            Button_RenameEntry.Click, Button_DeleteEntry.Click,
+            Button_EntryValueChanged.Click
 
         'Welcher Button wurde geklickt?
         Select Case True
@@ -84,6 +85,10 @@ Public Class Form1
                 'Eintrag löschen
                 Me.DeleteEnty()
 
+            Case sender Is Me.Button_EntryValueChanged
+                'geänderten Eintragswert übernehmen
+                Me.SetEntryValue()
+
         End Select
 
     End Sub
@@ -99,8 +104,19 @@ Public Class Form1
 
             Case TextBox Is Me.TextBox_SectionComment
                 'Textbox für Abschnittskommentar befüllen
-                Me.TextBox_SectionComment.Lines = Me.IniFile1.GetSectionComment(Me.ListBox_Sections.SelectedItem.ToString)
+                Me.TextBox_SectionComment.Lines = Me.IniFile1.GetSectionComment(
+                    Me.ListBox_Sections.SelectedItem.ToString)
                 Me.Button_SectionCommentChange.Enabled = False
+
+            Case TextBox Is Me.TextBox_EntryValue
+                'Textbox für Eintragswert befüllen
+                Me.TextBox_EntryValue.Text = Me.IniFile1.GetEntryValue(
+                   Me.ListBox_Sections.SelectedItem.ToString,
+                   Me.ListBox_Entrys.SelectedItem.ToString)
+
+            Case TextBox Is Me.TextBox_FileContent
+                'Textbox für Dateiinhalt füllen
+                Me.TextBox_FileContent.Lines = Me.IniFile1.GetFileContent()
 
         End Select
 
@@ -108,8 +124,12 @@ Public Class Form1
 
     Private Sub FillListBox(ByRef Listbox As ListBox)
 
+
+        Debug.Print(Listbox.Name)
+
         'Einträge der Listbox löschen
         Listbox.Items.Clear()
+        Listbox.SelectedIndex = -1
 
         'Welche Listbox soll befüllt werden?
         Select Case True
@@ -129,9 +149,6 @@ Public Class Form1
                 Me.Button_AddEntry.Enabled = True
 
         End Select
-
-        'Markierung in der Listbox löschen
-        Listbox.SelectedIndex = -1
 
     End Sub
 
@@ -155,8 +172,18 @@ Public Class Form1
     Private Sub ListBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles _
         ListBox_Sections.SelectedIndexChanged, ListBox_Entrys.SelectedIndexChanged
 
+
+
+
+
         'Index merken
         Dim index As Integer = CType(sender, ListBox).SelectedIndex
+
+
+        Debug.Print(CType(sender, ListBox).Name & ": " & index.ToString)
+
+
+
 
         'In welcher Listbox hat sich der Index geändert?
         Select Case True
@@ -176,7 +203,7 @@ Public Class Form1
 
                 Else
                     'kein Abschnitt ausgewählt ->
-                    'Abschnittskommentar löschen und Buttons deaktivieren
+                    'Textbox für Abschnittskommentar löschen und Buttons deaktivieren
                     Me.TextBox_SectionComment.Text = ""
                     Me.Button_SectionCommentChange.Enabled = False
                     Me.Button_RenameSection.Enabled = False
@@ -184,6 +211,7 @@ Public Class Form1
 
                     'Eintragsliste löschen und Buttons deaktivieren
                     Me.ListBox_Entrys.Items.Clear()
+                    Me.ListBox_Entrys.SelectedIndex = -1
                     Me.Button_AddEntry.Enabled = False
                     Me.Button_RenameEntry.Enabled = False
                     Me.Button_DeleteEntry.Enabled = False
@@ -193,10 +221,20 @@ Public Class Form1
             Case sender Is Me.ListBox_Entrys
                 'Index des ausgewähten Eintrags
                 If index <> -1 Then
-                    'Abschnitt ausgewählt
+                    'Eintrag ausgewählt -> 
+                    'Eintragswert laden und Button aktivieren
+                    Me.FillTextBox(Me.TextBox_EntryValue)
+                    Me.Button_RenameEntry.Enabled = True
+                    Me.Button_DeleteEntry.Enabled = True
+                    Me.Button_EntryValueChanged.Enabled = True
 
                 Else
-                    'kein Abschnitt ausgewählt
+                    'kein Eintrag ausgewählt ->
+                    'Textbox für Eintragswert löschen und Button deaktivieren
+                    Me.TextBox_EntryValue.Text = ""
+                    Me.Button_RenameEntry.Enabled = False
+                    Me.Button_DeleteEntry.Enabled = False
+                    Me.Button_EntryValueChanged.Enabled = False
 
                 End If
 
@@ -205,6 +243,7 @@ Public Class Form1
     End Sub
 
     Private Sub IniFile1_FileContentChanged(sender As Object, e As EventArgs) Handles IniFile1.FileContentChanged
+        Me.FillTextBox(Me.TextBox_FileContent)
         Me.FillTextBox(Me.TextBox_FileComment)
         Me.FillListBox(Me.ListBox_Sections)
     End Sub
@@ -229,16 +268,20 @@ Public Class Form1
             MessageBoxIcon.Error)
     End Sub
 
-    Private Sub IniFile1_SectionCommentChanged(sender As Object, e As EventArgs) Handles IniFile1.SectionCommentChanged
-        Me.FillTextBox(Me.TextBox_SectionComment)
-    End Sub
-
     Private Sub IniFile1_EntrynameExist(sender As Object, e As EventArgs) Handles IniFile1.EntrynameExist
         Dim unused = MessageBox.Show(
             $"Der Eintrag existiert bereits.",
             $"Ein Fehler ist aufgetreten",
             MessageBoxButtons.OK,
             MessageBoxIcon.Error)
+    End Sub
+
+    Private Sub IniFile1_SectionCommentChanged(sender As Object, e As EventArgs) Handles IniFile1.SectionCommentChanged
+        Me.FillTextBox(Me.TextBox_SectionComment)
+    End Sub
+
+    Private Sub IniFile1_EntryValueChanged(sender As Object, e As EventArgs) Handles IniFile1.EntryValueChanged
+        Me.FillTextBox(Me.TextBox_EntryValue)
     End Sub
 
     Private Sub SetSectionComment()
@@ -253,7 +296,18 @@ Public Class Form1
     Private Sub SetFileComment()
 
         'Den Text aus der Textbox übergeben
-        Me.IniFile1.SetFileComment(Me.TextBox_FileComment.Lines)
+        Me.IniFile1.SetFileComment(
+            Me.TextBox_FileComment.Lines)
+
+    End Sub
+
+    Private Sub SetEntryValue()
+
+        'Den Text aus der Textbox übergeben
+        Me.IniFile1.SetEntryValue(
+            Me.ListBox_Sections.SelectedItem.ToString,
+            Me.ListBox_Entrys.SelectedItem.ToString,
+            Me.TextBox_EntryValue.Text)
 
     End Sub
 

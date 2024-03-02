@@ -30,6 +30,7 @@ Partial Class Form1
         Dim GroupBox_Sections As System.Windows.Forms.GroupBox
         Dim GroupBox_SectionComment As System.Windows.Forms.GroupBox
         Dim GroupBox_Entrys As System.Windows.Forms.GroupBox
+        Dim GroupBox_FileContent As System.Windows.Forms.GroupBox
         Me.ToolStripMenuItem_Oeffnen = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem_Speichern = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem_SpeichernUnter = New System.Windows.Forms.ToolStripMenuItem()
@@ -47,6 +48,10 @@ Partial Class Form1
         Me.Button_AddEntry = New System.Windows.Forms.Button()
         Me.ListBox_Entrys = New System.Windows.Forms.ListBox()
         Me.IniFile1 = New SchlumpfSoft.Controls.IniFileControl.IniFile()
+        Me.GroupBox_EntryValue = New System.Windows.Forms.GroupBox()
+        Me.TextBox_EntryValue = New System.Windows.Forms.TextBox()
+        Me.TextBox_FileContent = New System.Windows.Forms.TextBox()
+        Me.Button_EntryValueChanged = New System.Windows.Forms.Button()
         MenuStrip_HauptMenu = New System.Windows.Forms.MenuStrip()
         ToolStripMenuItem_Datei = New System.Windows.Forms.ToolStripMenuItem()
         ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
@@ -55,11 +60,14 @@ Partial Class Form1
         GroupBox_Sections = New System.Windows.Forms.GroupBox()
         GroupBox_SectionComment = New System.Windows.Forms.GroupBox()
         GroupBox_Entrys = New System.Windows.Forms.GroupBox()
+        GroupBox_FileContent = New System.Windows.Forms.GroupBox()
         MenuStrip_HauptMenu.SuspendLayout()
         GroupBox_FileComment.SuspendLayout()
         GroupBox_Sections.SuspendLayout()
         GroupBox_SectionComment.SuspendLayout()
         GroupBox_Entrys.SuspendLayout()
+        Me.GroupBox_EntryValue.SuspendLayout()
+        GroupBox_FileContent.SuspendLayout()
         Me.SuspendLayout()
         '
         'MenuStrip_HauptMenu
@@ -67,7 +75,7 @@ Partial Class Form1
         MenuStrip_HauptMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {ToolStripMenuItem_Datei})
         MenuStrip_HauptMenu.Location = New System.Drawing.Point(0, 0)
         MenuStrip_HauptMenu.Name = "MenuStrip_HauptMenu"
-        MenuStrip_HauptMenu.Size = New System.Drawing.Size(669, 24)
+        MenuStrip_HauptMenu.Size = New System.Drawing.Size(940, 24)
         MenuStrip_HauptMenu.TabIndex = 0
         '
         'ToolStripMenuItem_Datei
@@ -198,9 +206,9 @@ Partial Class Form1
         '
         GroupBox_SectionComment.Controls.Add(Me.Button_SectionCommentChange)
         GroupBox_SectionComment.Controls.Add(Me.TextBox_SectionComment)
-        GroupBox_SectionComment.Location = New System.Drawing.Point(347, 32)
+        GroupBox_SectionComment.Location = New System.Drawing.Point(339, 32)
         GroupBox_SectionComment.Name = "GroupBox_SectionComment"
-        GroupBox_SectionComment.Size = New System.Drawing.Size(308, 164)
+        GroupBox_SectionComment.Size = New System.Drawing.Size(316, 164)
         GroupBox_SectionComment.TabIndex = 3
         GroupBox_SectionComment.TabStop = False
         GroupBox_SectionComment.Text = "Abschnittskommentar"
@@ -283,11 +291,65 @@ Partial Class Form1
         Me.IniFile1.CommentPrefix = Global.Microsoft.VisualBasic.ChrW(59)
         Me.IniFile1.FilePath = "D:\Dokumente\NeueDatei.ini"
         '
+        'GroupBox_EntryValue
+        '
+        Me.GroupBox_EntryValue.Controls.Add(Me.Button_EntryValueChanged)
+        Me.GroupBox_EntryValue.Controls.Add(Me.TextBox_EntryValue)
+        Me.GroupBox_EntryValue.Location = New System.Drawing.Point(661, 335)
+        Me.GroupBox_EntryValue.Name = "GroupBox_EntryValue"
+        Me.GroupBox_EntryValue.Size = New System.Drawing.Size(267, 77)
+        Me.GroupBox_EntryValue.TabIndex = 5
+        Me.GroupBox_EntryValue.TabStop = False
+        Me.GroupBox_EntryValue.Text = "Eintragswert"
+        '
+        'TextBox_EntryValue
+        '
+        Me.TextBox_EntryValue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.TextBox_EntryValue.Location = New System.Drawing.Point(6, 19)
+        Me.TextBox_EntryValue.Name = "TextBox_EntryValue"
+        Me.TextBox_EntryValue.ScrollBars = System.Windows.Forms.ScrollBars.Both
+        Me.TextBox_EntryValue.Size = New System.Drawing.Size(255, 20)
+        Me.TextBox_EntryValue.TabIndex = 0
+        Me.TextBox_EntryValue.WordWrap = False
+        '
+        'GroupBox_FileContent
+        '
+        GroupBox_FileContent.Controls.Add(Me.TextBox_FileContent)
+        GroupBox_FileContent.Location = New System.Drawing.Point(661, 32)
+        GroupBox_FileContent.Name = "GroupBox_FileContent"
+        GroupBox_FileContent.Size = New System.Drawing.Size(267, 297)
+        GroupBox_FileContent.TabIndex = 6
+        GroupBox_FileContent.TabStop = False
+        GroupBox_FileContent.Text = "Dateiinhalt"
+        '
+        'TextBox_FileContent
+        '
+        Me.TextBox_FileContent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.TextBox_FileContent.Location = New System.Drawing.Point(6, 20)
+        Me.TextBox_FileContent.Multiline = True
+        Me.TextBox_FileContent.Name = "TextBox_FileContent"
+        Me.TextBox_FileContent.ScrollBars = System.Windows.Forms.ScrollBars.Both
+        Me.TextBox_FileContent.Size = New System.Drawing.Size(255, 271)
+        Me.TextBox_FileContent.TabIndex = 0
+        Me.TextBox_FileContent.WordWrap = False
+        '
+        'Button_EntryValueChanged
+        '
+        Me.Button_EntryValueChanged.Enabled = False
+        Me.Button_EntryValueChanged.Location = New System.Drawing.Point(177, 45)
+        Me.Button_EntryValueChanged.Name = "Button_EntryValueChanged"
+        Me.Button_EntryValueChanged.Size = New System.Drawing.Size(84, 24)
+        Me.Button_EntryValueChanged.TabIndex = 5
+        Me.Button_EntryValueChanged.Text = "übernehmen"
+        Me.Button_EntryValueChanged.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(669, 426)
+        Me.ClientSize = New System.Drawing.Size(940, 426)
+        Me.Controls.Add(GroupBox_FileContent)
+        Me.Controls.Add(Me.GroupBox_EntryValue)
         Me.Controls.Add(GroupBox_Entrys)
         Me.Controls.Add(GroupBox_SectionComment)
         Me.Controls.Add(GroupBox_Sections)
@@ -307,6 +369,10 @@ Partial Class Form1
         GroupBox_SectionComment.ResumeLayout(False)
         GroupBox_SectionComment.PerformLayout()
         GroupBox_Entrys.ResumeLayout(False)
+        Me.GroupBox_EntryValue.ResumeLayout(False)
+        Me.GroupBox_EntryValue.PerformLayout()
+        GroupBox_FileContent.ResumeLayout(False)
+        GroupBox_FileContent.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -328,4 +394,8 @@ Partial Class Form1
     Private WithEvents Button_DeleteEntry As Button
     Private WithEvents Button_RenameEntry As Button
     Private WithEvents Button_AddEntry As Button
+    Private WithEvents GroupBox_EntryValue As GroupBox
+    Private WithEvents TextBox_EntryValue As TextBox
+    Private WithEvents TextBox_FileContent As TextBox
+    Private WithEvents Button_EntryValueChanged As Button
 End Class

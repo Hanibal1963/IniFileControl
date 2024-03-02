@@ -15,7 +15,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <AssemblyVersion>1.2024.0224.60</AssemblyVersion>
-    <AssemblyVersion>1.2024.0302.75</AssemblyVersion>
+    <AssemblyVersion>1.2024.0302.84</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
