@@ -6,6 +6,9 @@
 
 Imports System.Collections.Generic
 
+''' <summary>
+''' Modul mit Hilfsfunktionen
+''' </summary>
 Module HelperFunctions
 
     ''' <summary>
