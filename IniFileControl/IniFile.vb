@@ -138,7 +138,7 @@ Public Class IniFile
     ''' <remarks>
     ''' Wenn kein Prefixzeichen angegeben wird, wird Standardmäßig das Semikolon verwendet.
     ''' </remarks>
-    Public Sub New(FilePath As String, Optional CommentPrefix As Char = ";"c)
+    Public Sub New(FilePath As String, CommentPrefix As Char)
 
         MyBase.New
         CreateStandardValues(FilePath, CommentPrefix) 'Standardwerte festlegen
